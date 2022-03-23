@@ -1,0 +1,21 @@
+{
+  "name": "@m9ch/vhooks-core",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@m9ch/vhooks-types": "workspace:^",
+    "@m9ch/vhooks-utils": "workspace:^",
+    "vue-demi": "^0.12.4"
+  },
+  "devDependencies": {
+    "vue": "^3.2.31"
+  }
+}

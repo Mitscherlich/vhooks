@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "echo 'TODO'",
+    "build": "pnpm run build -r --if-present"
+  },
+  "devDependencies": {
+    "@m9ch/eslint-config-all": "^0.1.1",
+    "eslint": "^8.11.0",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.2"
+  }
+}

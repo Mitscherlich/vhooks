@@ -1,0 +1,28 @@
+{
+  "name": "@m9ch/vhooks-types",
+  "version": "0.1.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup ./src/index.ts"
+  },
+  "devDependencies": {
+    "vue": "^3.2.31"
+  },
+  "tsup": {
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "dts": true,
+    "clean": true
+  }
+}
