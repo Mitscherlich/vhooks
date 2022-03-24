@@ -1,14 +1,14 @@
 import type {
-  DependenciesList,
-  Destroyer,
+  DependencyList,
+  Destructor,
   EffectCallback,
 } from '@m9ch/vhooks-types'
 import { remove, toArray } from '@m9ch/vhooks-utils'
 import { ReactiveEffect, getCurrentInstance, isRef, ref } from 'vue-demi'
 
-export const useEffect = (cb: EffectCallback, deps?: DependenciesList) => {
+export const useEffect = (cb: EffectCallback, deps?: DependencyList) => {
   let dirty = true
-  let cleanup: Destroyer
+  let cleanup: Destructor
   let effect: ReactiveEffect
 
   const instance = getCurrentInstance()
@@ -28,7 +28,7 @@ export const useEffect = (cb: EffectCallback, deps?: DependenciesList) => {
     // cleanup before running cb again
     if (cleanup) cleanup()
 
-    cleanup = cb() as Destroyer
+    cleanup = cb() as Destructor
   }
 
   effect = new ReactiveEffect(runner, job)

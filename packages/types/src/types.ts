@@ -22,8 +22,8 @@ export type ReturnValue<S, A> = [
   Dispatch<A>,
 ]
 
-export type Destroyer = () => void
-export type EffectCallback = () => void | Destroyer
+export type Destructor = () => void
+export type EffectCallback = () => void | Destructor
 
 export type mixed = any
-export type DependenciesList = Array<mixed> | void | null
+export type DependencyList = Array<mixed> | void | null

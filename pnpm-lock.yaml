@@ -14,18 +14,8 @@ importers:
       tsup: 5.12.1_typescript@4.6.2
       typescript: 4.6.2
 
-  packages/core:
-    specifiers:
-      '@m9ch/vhooks-types': workspace:^
-      '@m9ch/vhooks-utils': workspace:^
-      vue: ^3.2.31
-      vue-demi: ^0.12.4
-    dependencies:
-      '@m9ch/vhooks-types': link:../types
-      '@m9ch/vhooks-utils': link:../utils
-      vue-demi: 0.12.4_vue@3.2.31
-    devDependencies:
-      vue: 3.2.31
+  packages/test-utils:
+    specifiers: {}
 
   packages/types:
     specifiers:
@@ -38,13 +28,18 @@ importers:
 
   packages/vhooks:
     specifiers:
-      '@m9ch/vhooks-core': workspace:^
+      '@m9ch/vhooks-test-utils': workspace:^
       '@m9ch/vhooks-types': workspace:^
       '@m9ch/vhooks-utils': workspace:^
+      vue: ^3.2.31
+      vue-demi: ^0.12.4
     dependencies:
-      '@m9ch/vhooks-core': link:../core
+      '@m9ch/vhooks-test-utils': link:../test-utils
       '@m9ch/vhooks-types': link:../types
       '@m9ch/vhooks-utils': link:../utils
+      vue-demi: 0.12.4_vue@3.2.31
+    devDependencies:
+      vue: 3.2.31
 
 packages:
 

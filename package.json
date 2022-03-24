@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "test": "echo 'TODO'",
     "build": "pnpm run build -r --if-present"
   },
   "devDependencies": {
