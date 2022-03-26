@@ -1,3 +1,9 @@
 {
-  "name": "@m9ch/vhooks-test-utils"
+  "name": "@m9ch/vhooks-test-utils",
+  "peerDependencies": {
+    "vitest": "^0.7.0"
+  },
+  "devDependencies": {
+    "vitest": "^0.7.11"
+  }
 }

@@ -12,9 +12,12 @@
     }
   },
   "scripts": {
-    "build": "tsup ./src/index.ts"
+    "build": "tsup ./src/index.ts",
+    "test": "vitest"
   },
   "devDependencies": {
+    "@m9ch/vhooks-test-utils": "workspace:^",
+    "vitest": "^0.7.11"
   },
   "tsup": {
     "format": [
