@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [dev]
+
+  pull_request:
+    branches: [dev]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.2.1
+        with:
+          version: 6.32.3
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - run: pnpm install
+      - run: pnpm lint
+      - run: pnpm test
+
+  # version:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: pnpm/action-setup@v2.2.1
+  #       with:
+  #         version: 6.32.3
+
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16.x
+  #         cache: pnpm
+
+  #     - run: pnpm install
+
+  #     - uses: changesets/action@master
+  #       with:
+  #         version: pnpm version
+  #         commit: "chore: prerelease sync"
+  #         title: "chore: prerelease sync"
+  #         publish: pnpm release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

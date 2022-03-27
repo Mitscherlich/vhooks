@@ -1,7 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "pnpm run build -r --if-present"
+    "build": "pnpm run build -r --if-present",
+    "lint": "pnpm run lint -r --if-present",
+    "test": "pnpm run test -r --if-present"
   },
   "devDependencies": {
     "@m9ch/eslint-config-all": "^0.1.1",
