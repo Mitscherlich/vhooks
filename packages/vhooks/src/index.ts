@@ -3,4 +3,8 @@ export {
   useEffect,
   useReducer,
   useState,
-} from './hooks'
+} from './base'
+
+export {
+  useResetableRef,
+} from './state'

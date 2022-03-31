@@ -1,3 +1,7 @@
+import type { Ref } from 'vue'
+
+export type MaybeRef<T> = T | Ref<T>
+
 type Unwrap<T> = T extends Record<string, infer U>
   ? U
   : T extends (infer U)[]
