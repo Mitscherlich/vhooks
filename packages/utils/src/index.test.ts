@@ -1,41 +1,47 @@
-import { compose, curry, remove, run, toArray } from './index'
+import { copy, isObject, isPrimitive, shallowEqual } from './index'
 
-test('toArray should convert non-array value to array', () => {
-  const dummy = { foo: 'bar' }
-  const result = toArray(dummy)
-  expect(result).toEqual([dummy])
+test('isPrimitive should return true for string, number and boolean', () => {
+  expect(isPrimitive('string')).toBe(true)
+  expect(isPrimitive(1)).toBe(true)
+  expect(isPrimitive(true)).toBe(true)
 })
 
-test('toArray should not convert array value', () => {
-  const dummy = [{ foo: 'bar' }]
-  const result = toArray(dummy)
-  expect(result).toEqual(dummy)
+test('isPrimitive should return false for object', () => {
+  expect(isPrimitive({})).toBe(false)
 })
 
-test('remove should delete exist item in array', () => {
-  const arr = [1, 2, 3]
-  remove(arr, 2)
-  expect(arr).toEqual([1, 3])
+test('isObject should return true for object', () => {
+  expect(isObject({})).toBe(true)
 })
 
-test('compose should call fns right to left', () => {
-  const f1 = (x: number) => x + 1
-  const f2 = (x: number) => x * 2
-  const f3 = (x: number) => x - 1
-  const result = compose(f1, f2, f3)(1)
-  expect(result).toEqual(1)
+test('isObject should return false for null and undefined', () => {
+  expect(isObject(null)).toBe(false)
+  expect(isObject(undefined)).toBe(false)
 })
 
-test('run should call each fn left to right', () => {
-  const f1 = (x: number) => x + 1
-  const f2 = (x: number) => x * 2
-  const f3 = (x: number) => x - 1
-  const result = run(f1, f2, f3)(1)
-  expect(result).toEqual(3)
+test('shallowEqual should return true for same primitive and object', () => {
+  expect(shallowEqual('string', 'string')).toBe(true)
+  expect(shallowEqual(1, 1)).toBe(true)
+  expect(shallowEqual(true, true)).toBe(true)
+  expect(shallowEqual({ a: 1 }, { a: 1 })).toBe(true)
 })
 
-test('curry should return a monad function', () => {
-  const fn = (x: number, y: number) => x + y
-  const result = curry(fn)(1, 2)
-  expect(result).toEqual(3)
+test('shallowEqual should return false for different primitive and object', () => {
+  expect(shallowEqual('string', 1)).toBe(false)
+  expect(shallowEqual(1, 'string')).toBe(false)
+  expect(shallowEqual(true, false)).toBe(false)
+  expect(shallowEqual({ a: 1 }, { a: 2 })).toBe(false)
+})
+
+test('copy should return same primitive and object', () => {
+  expect(copy('string')).toBe('string')
+  expect(copy(1)).toBe(1)
+  expect(copy(true)).toBe(true)
+  expect(copy({ a: 1 })).toEqual({ a: 1 })
+})
+
+test('copy should return different object in same shape', () => {
+  const obj = { a: 1 }
+  expect(copy(obj)).not.toBe(obj)
+  expect(copy(obj)).toEqual(obj)
 })

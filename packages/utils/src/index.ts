@@ -1,20 +1,35 @@
-export const toArray = <T>(val: T | T[]): T[] => Array.isArray(val) ? val : [val]
+export { toArray, remove } from './array'
 
-export const remove = <T>(arr: T[], el: T): void => {
-  const i = arr.indexOf(el)
-  if (i > -1) arr.splice(i, 1)
+export const isPrimitive = (val: any): val is string | number | boolean => {
+  return ['string', 'number', 'boolean'].includes(typeof val)
 }
 
-export const compose = <T>(...fns: ((x: T) => T)[]): (x: T) => T => {
-  return fns.reduce((f, g) => x => f(g(x)))
+export const isObject = (val: any): val is object => {
+  return typeof val === 'object' && val !== null
 }
 
-export const run = <T>(...fns: ((x: T) => T)[]): (x: T) => T => {
-  return fns.reduce((f, g) => x => g(f(x)))
+export const shallowEqual = (a: any, b: any): boolean => {
+  if (isPrimitive(a) || isPrimitive(b)) return a === b
+  if (isObject(a) && isObject(b)) {
+    const keysA = Object.keys(a)
+    const keysB = Object.keys(b)
+    if (keysA.length !== keysB.length) return false
+    for (const key of keysA)
+      if (!keysB.includes(key) || !shallowEqual(a[key], b[key])) return false
+
+    return true
+  }
+  return false
 }
 
-export type CurriedFn<T> = (...args: any[]) => T | CurriedFn<T>
-
-export const curry = <T>(fn: (...args: any[]) => T, ...args: any[]): T | CurriedFn<T> => {
-  return args.length >= fn.length ? fn(...args) : (...newArgs: any[]) => curry(fn, ...args, ...newArgs)
+export const copy = <T>(val: T): T => {
+  if (isPrimitive(val)) return val
+  if (isObject(val)) {
+    const copy = {} as T
+    for (const key in val) copy[key] = val[key]
+    return copy
+  }
+  return val
 }
+
+export * as fn from './fn'
