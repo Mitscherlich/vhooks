@@ -2,30 +2,47 @@ import type {
   DependencyList,
   EffectCallback,
 } from '@m9ch/vhooks-types'
-import { run, toArray } from '@m9ch/vhooks-utils'
-import { isRef, onMounted, onUnmounted, ref, watch } from 'vue-demi'
+import { fn, toArray } from '@m9ch/vhooks-utils'
+import { getCurrentInstance, onBeforeUnmount, onMounted, watch } from 'vue-demi'
 
-export const useEffect = (rawEffect: EffectCallback, deps?: DependencyList) => {
-  const cleanup: any = () => {
+interface Cleanup {
+  (...args: any): void
+  current?: ReturnType<EffectCallback>
+}
+
+interface Effect {
+  (...args: any): void
+  current?: EffectCallback
+}
+
+export const useEffect = (rawEffect: EffectCallback, deps: DependencyList = []) => {
+  const cleanup: Cleanup = () => {
     const { current } = cleanup
     if (current) {
       current()
       cleanup.current = null
     }
   }
-  const effect: any = () => {
+
+  const effect: Effect = () => {
     const { current } = effect
     if (current) {
       cleanup.current = current()
       effect.current = null
     }
   }
+
   effect.current = rawEffect
 
-  onMounted(effect)
-  onUnmounted(cleanup)
-  if (!deps || deps.length > 0) {
-    const source = toArray(deps).map(d => isRef(d) ? d : ref(d))
-    watch(source, run(cleanup, effect))
+  const source = () => toArray(deps)
+
+  const stopWatch = watch(source, fn.pipe(cleanup, effect, () => {
+    effect.current = rawEffect
+  }), { flush: 'sync' })
+
+  if (getCurrentInstance()) {
+    onMounted(effect)
+    onBeforeUnmount(fn.pipe<void>(stopWatch, cleanup))
   }
+  else { effect() }
 }

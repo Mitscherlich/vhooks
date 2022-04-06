@@ -1,3 +1,7 @@
-test('1 + 1 = 2', () => {
-  expect(1 + 1).toBe(2)
+import { useEffect } from './effect'
+
+test('useEffect should run immediate if no Vue instance present', () => {
+  const fn = vitest.fn()
+  useEffect(fn, [])
+  expect(fn).toBeCalled()
 })

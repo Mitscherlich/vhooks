@@ -12,7 +12,8 @@
     }
   },
   "scripts": {
-    "build": "tsup ./src/index.ts"
+    "build": "tsup ./src/index.ts",
+    "test": "vitest"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",
