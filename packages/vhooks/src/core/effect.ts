@@ -2,7 +2,7 @@ import type {
   DependencyList,
   EffectCallback,
 } from '@m9ch/vhooks-types'
-import { fn, toArray } from '@m9ch/vhooks-utils'
+import { fn as _, toArray } from '@m9ch/vhooks-utils'
 import { getCurrentInstance, onBeforeUnmount, onMounted, watch } from 'vue-demi'
 
 interface Cleanup {
@@ -36,13 +36,13 @@ export const useEffect = (rawEffect: EffectCallback, deps: DependencyList = []) 
 
   const source = () => toArray(deps)
 
-  const stopWatch = watch(source, fn.pipe(cleanup, effect, () => {
+  const stopWatch = watch(source, _.pipe(cleanup, effect, () => {
     effect.current = rawEffect
   }), { flush: 'sync' })
 
   if (getCurrentInstance()) {
     onMounted(effect)
-    onBeforeUnmount(fn.pipe<void>(stopWatch, cleanup))
+    onBeforeUnmount(_.pipe<void>(stopWatch, cleanup))
   }
   else { effect() }
 }

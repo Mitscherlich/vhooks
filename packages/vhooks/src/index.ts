@@ -1,9 +1,9 @@
 export {
-  useContext,
+  // useContext,
   useEffect,
   useReducer,
   useState,
-} from './base'
+} from './core'
 
 export {
   useResetableRef,
