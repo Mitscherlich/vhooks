@@ -6,6 +6,7 @@
     "test": "pnpm run test -r --if-present"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.22.0",
     "@m9ch/eslint-config-all": "^0.1.1",
     "eslint": "^8.11.0",
     "tsup": "^5.12.1",
