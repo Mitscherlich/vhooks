@@ -26,5 +26,8 @@
     ],
     "dts": true,
     "clean": true
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
