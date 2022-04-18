@@ -13,11 +13,11 @@ export const useResetableRef = <T>(initialValue: MaybeRef<T>): [Ref<T>, (value: 
     set: (newVal) => {
       value = newVal
       trigger()
-    }
+    },
   }))
 
   const reset = (newVal: MaybeRef<T> = initialValue) => {
-    value = unref(newVal)
+    ref.value = value = unref(newVal)
   }
 
   return [ref, reset]
