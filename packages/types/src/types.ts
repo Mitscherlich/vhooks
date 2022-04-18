@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { DefineComponent, InjectionKey, Ref } from 'vue'
 
 export type MaybeRef<T> = T | Ref<T>
 
@@ -31,3 +31,14 @@ export type EffectCallback = () => void | Destructor
 
 export type mixed = any
 export type DependencyList = Array<mixed> | void | null
+
+export interface ProviderProps<T> {
+  value?: T
+}
+
+export interface Context<T> {
+  _context: T
+  _contextId: InjectionKey<Ref<T>>
+  Provider: DefineComponent<ProviderProps<T>>
+  Consumer: DefineComponent<{}>
+}

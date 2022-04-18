@@ -1,6 +1,6 @@
 export {
   useCallback,
-  // useContext,
+  useContext,
   useEffect,
   useMemo,
   useRef,
