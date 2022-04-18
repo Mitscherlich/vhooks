@@ -17,7 +17,7 @@ export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: Injection
   })
   context.Provider.props = ['value'] // for any type
 
-  context.Consumers = defineComponent((_, ctx) => {
+  context.Consumer = defineComponent((_, ctx) => {
     const refVal = inject(context._contextId)
     return () => ctx.slots.default?.(refVal)
   })
