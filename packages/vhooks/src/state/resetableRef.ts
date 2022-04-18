@@ -2,7 +2,7 @@ import type { MaybeRef } from '@m9ch/vhooks-types'
 import type { Ref } from 'vue-demi'
 import { customRef, unref } from 'vue-demi'
 
-export const useResetableRef = <T>(initialValue: MayRef<T>): [Ref<T>, (value: MaybeRef<T>) => void] => {
+export const useResetableRef = <T>(initialValue: MaybeRef<T>): [Ref<T>, (value: MaybeRef<T>) => void] => {
   let value: T
 
   const ref = customRef<T>((track, trigger) => ({
