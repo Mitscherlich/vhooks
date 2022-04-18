@@ -43,6 +43,7 @@ importers:
       '@m9ch/vhooks-test-utils': workspace:^
       '@m9ch/vhooks-types': workspace:^
       '@m9ch/vhooks-utils': workspace:^
+      rimraf: ^3.0.2
       vitest: ^0.8.1
       vue: ^3.2.31
       vue-demi: ^0.12.4
@@ -52,6 +53,7 @@ importers:
       vue-demi: 0.12.4_vue@3.2.31
     devDependencies:
       '@m9ch/vhooks-test-utils': link:../test-utils
+      rimraf: 3.0.2
       vitest: 0.8.1
       vue: 3.2.31
 
