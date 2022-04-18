@@ -1,5 +1,5 @@
 export { useCallback } from './callback'
-export { useContext } from './context'
+export { useContext, createContext } from './context'
 export { useEffect } from './effect'
 export { useReducer } from './reducer'
 export { useMemo } from './memo'
