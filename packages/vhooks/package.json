@@ -11,9 +11,14 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "source": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup ./src/index.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "prepublishOnly": "rimraf ./dist && pnpm build"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",
@@ -31,6 +36,7 @@
   },
   "devDependencies": {
     "@m9ch/vhooks-test-utils": "workspace:^",
+    "rimraf": "^3.0.2",
     "vue": "^3.2.31",
     "vitest": "^0.8.1"
   },
