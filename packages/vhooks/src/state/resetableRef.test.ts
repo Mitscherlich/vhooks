@@ -19,8 +19,13 @@ test('reset function should reset the ref', () => {
 })
 
 test('useResetableRef would take object as initial value', () => {
-  const [ref, reset] = useResetableRef({ a: 1 })
-  ref.value.a = 2
+  const initial = { a: 1 }
+  const [ref, reset] = useResetableRef(initial)
+  // Take care: this means you would mutate initial value
+  // don't do this in production
+  // ref.value.a = 2
+  // console.log(initial) --> { a: 2 }
+  ref.value = { a: 2 }
   expect(ref.value).toEqual({ a: 2 })
   reset()
   expect(ref.value).toEqual({ a: 1 })
