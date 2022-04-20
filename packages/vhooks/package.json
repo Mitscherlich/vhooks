@@ -16,7 +16,6 @@
     "dist"
   ],
   "scripts": {
-    "docs:build": "typedoc --out docs src/index.ts",
     "build": "tsup ./src/index.ts",
     "test": "vitest",
     "prepublishOnly": "rimraf ./dist && pnpm build"
@@ -38,7 +37,6 @@
   "devDependencies": {
     "@m9ch/vhooks-test-utils": "workspace:^",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.22.15",
     "vitest": "^0.9.3",
     "vue": "^3.2.33"
   },

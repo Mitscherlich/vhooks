@@ -4,11 +4,16 @@
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "esModuleInterop": true
   },
   "exclude": [
     "node_modules",
     "**/*.spec.ts",
     "**/*.test.ts"
-  ]
+  ],
+  "typedocOptions": {
+    "entryPoints": ["./packages/vhooks/src/index.ts"],
+    "out": "docs"
+  }
 }
