@@ -15,6 +15,18 @@ interface Effect {
   current?: EffectCallback
 }
 
+/**
+ * similar to `React.useEffect`, but have some difference:
+ *
+ * 1. TODO
+ * 2. TODO
+ *
+ * Example:
+ *
+ * ```tsx
+ * // TODO
+ * ```
+ */
 export const useEffect = (rawEffect: EffectCallback, deps: DependencyList = []) => {
   const cleanup: Cleanup = () => {
     const { current } = cleanup

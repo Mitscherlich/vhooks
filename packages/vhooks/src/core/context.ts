@@ -2,6 +2,9 @@ import type { Context, MaybeRef, ProviderProps } from '@m9ch/vhooks-types'
 import type { InjectionKey, Ref } from 'vue-demi'
 import { defineComponent, inject, provide, unref, watch } from 'vue-demi'
 
+/**
+ * similar to `React.createContext`
+ */
 export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: InjectionKey<Ref<T>> = Symbol('@@defaultContext')): Context<T> => {
   const context: any = {
     _context: unref(defaultValue),
@@ -25,6 +28,9 @@ export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: Injection
   return context as Context<T>
 }
 
+/**
+ * similar to `React.useContext`
+ */
 export const useContext = <T>(context: Context<T>): Ref<T> => {
   return inject(context._contextId)
 }

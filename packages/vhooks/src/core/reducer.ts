@@ -7,6 +7,9 @@ import type {
 import type { Ref, UnwrapRef } from 'vue-demi'
 import { readonly, ref, unref } from 'vue-demi'
 
+/**
+ * Similar to `React.useState`, but return a Vue.ref for the state.
+ */
 export const useReducer = <S, A>(
   reducer: Reducer<S, A>,
   initialArg: S,

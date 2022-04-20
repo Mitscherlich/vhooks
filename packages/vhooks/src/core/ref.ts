@@ -1,13 +1,16 @@
 import type { Ref } from 'vue-demi'
-import { customRef, isRef, ref, unref } from 'vue-demi'
+import { customRef, isRef, ref } from 'vue-demi'
 import type { MaybeRef } from '@m9ch/vhooks-types'
 
-export const useRef = <T>(value?: MaybeRef<T>): Ref<T> => isRef(value)
-  ? ref(unref(value)) as Ref<T>
+/**
+ * An alias version of Vue.ref
+ */
+export const useRef = <T>(value?: MaybeRef<T>): Ref<T> => isRef<T>(value)
+  ? ref<Ref<T>>(value)
   : customRef<T>((track, trigger) => ({
     get: () => {
       track()
-      return unref(value)
+      return value as T
     },
     set: (newVal) => {
       value = newVal
