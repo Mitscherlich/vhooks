@@ -17,9 +17,6 @@ export const useResetableRef = <T>(initialValue: MaybeRef<T>): [Ref<T>, (value?:
   }))
 
   const reset = (newVal: MaybeRef<T> = initialValue) => {
-    console.error('initialValue', initialValue)
-
-    console.error('newVal', newVal)
     ref.value = value = unref(newVal)
   }
 
