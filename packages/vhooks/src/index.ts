@@ -1,4 +1,8 @@
 export {
+  MaybeRef,
+} from '@m9ch/vhooks-types'
+
+export {
   createContext,
   useCallback,
   useContext,
