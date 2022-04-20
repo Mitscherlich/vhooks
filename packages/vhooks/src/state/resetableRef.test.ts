@@ -1,5 +1,4 @@
 import { isRef } from 'vue-demi'
-
 import { useResetableRef } from './resetableRef'
 
 test('useResetableRef should return a Ref and a reset function', () => {
@@ -14,6 +13,7 @@ test('reset function should reset the ref', () => {
   expect(ref.value).toBe(2)
   reset()
   expect(ref.value).toBe(1)
+  // You can pass an argument to change the value
   reset(2)
   expect(ref.value).toBe(2)
 })
@@ -21,10 +21,10 @@ test('reset function should reset the ref', () => {
 test('useResetableRef would take object as initial value', () => {
   const initial = { a: 1 }
   const [ref, reset] = useResetableRef(initial)
-  // Take care: this means you would mutate initial value
-  // don't do this in production
-  // ref.value.a = 2
-  // console.log(initial) --> { a: 2 }
+  // Take care: this means you'll mutate initial value
+  // This is the wrong way:
+  // ref.value.a = 2 --> { a: 2 }
+  // This is the right way:
   ref.value = { a: 2 }
   expect(ref.value).toEqual({ a: 2 })
   reset()
