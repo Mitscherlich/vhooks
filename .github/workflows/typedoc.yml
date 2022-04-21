@@ -1,0 +1,29 @@
+name: Build TypeDocs
+
+on:
+  push:
+    branches: [dev]
+
+  pull_request:
+    branches: [dev]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.2.1
+        with:
+          version: 6.32.3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm docs:build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./docs
