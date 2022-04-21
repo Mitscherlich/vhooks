@@ -1,4 +1,4 @@
-export {
+export type {
   MaybeRef,
 } from '@m9ch/vhooks-types'
 
