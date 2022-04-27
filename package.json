@@ -2,9 +2,9 @@
   "private": true,
   "scripts": {
     "docs:build": "typedoc --tsconfig tsconfig.json",
-    "build": "pnpm run build -r --if-present",
-    "lint": "pnpm run lint -r --if-present",
-    "test": "pnpm run test -r --if-present"
+    "build": "pnpm run -r --if-present build",
+    "lint": "pnpm run -r --if-present lint",
+    "test": "pnpm run -r --if-present test"
   },
   "devDependencies": {
     "@changesets/cli": "^2.22.0",
