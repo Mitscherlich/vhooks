@@ -2,59 +2,54 @@ import type {
   DependencyList,
   EffectCallback,
 } from '@m9ch/vhooks-types'
-import { fn as _, toArray } from '@m9ch/vhooks-utils'
-import { getCurrentInstance, onBeforeUnmount, onMounted, watch } from 'vue-demi'
+import { toArray } from '@m9ch/vhooks-utils'
+import { reactive, watch } from 'vue-demi'
+import { argsChanged } from '../common'
 
-interface Cleanup {
+export interface Cleanup {
   (...args: any): void
   current?: ReturnType<EffectCallback>
 }
 
-interface Effect {
+export interface Effect {
   (...args: any): void
   current?: EffectCallback
 }
 
-/**
- * similar to `React.useEffect`, but have some difference:
- *
- * 1. TODO
- * 2. TODO
- *
- * Example:
- *
- * ```tsx
- * // TODO
- * ```
- */
-export const useEffect = (rawEffect: EffectCallback, deps: DependencyList = []) => {
-  const cleanup: Cleanup = () => {
-    const { current } = cleanup
+export const useEffect = (fn: EffectCallback, deps?: DependencyList) => {
+  const invokeCleanup: Cleanup = () => {
+    const { current } = invokeCleanup
     if (current) {
       current()
-      cleanup.current = null
+      invokeCleanup.current = null
     }
   }
 
-  const effect: Effect = () => {
-    const { current } = effect
+  const invokeEffect: Effect = () => {
+    const { current } = invokeEffect
     if (current) {
-      cleanup.current = current()
-      effect.current = null
+      invokeCleanup.current = current()
+      invokeEffect.current = fn
     }
   }
 
-  effect.current = rawEffect
+  invokeEffect.current = fn
 
-  const source = () => toArray(deps)
-
-  const stopWatch = watch(source, _.pipe(cleanup, effect, () => {
-    effect.current = rawEffect
-  }), { flush: 'sync' })
-
-  if (getCurrentInstance()) {
-    onMounted(effect)
-    onBeforeUnmount(_.pipe<void>(stopWatch, cleanup))
+  const flushPostRender = () => {
+    invokeCleanup()
+    invokeEffect()
   }
-  else { effect() }
+
+  // force watch always trigger callback after each rendering
+  const forceTrigger = !deps
+
+  // hack to make sure watch callback always triggered
+  if (forceTrigger) deps = [reactive({})]
+
+  return watch(toArray(deps), (newArgs, oldArgs, cleanup) => {
+    if (argsChanged(oldArgs, newArgs))
+      flushPostRender()
+
+    cleanup(invokeCleanup)
+  }, { flush: 'post' })
 }
