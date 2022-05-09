@@ -26,9 +26,8 @@ export const useMemo = <T>(fn: () => T, deps: any[] = []): DeepReadonly<Ref<T>> 
       return value
     },
     set: () => {
-      if (process.env.NODE_ENV === 'development') {
-        // TODO: add warning
-      }
+      if (process.env.NODE_ENV === 'development')
+        console.warn('Write operation failed: useMemo is readonly')
     },
   }))
 }
