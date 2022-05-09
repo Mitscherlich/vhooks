@@ -7,6 +7,7 @@ export {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useReducer,

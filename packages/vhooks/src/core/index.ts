@@ -1,6 +1,7 @@
 export { useCallback } from './callback'
 export { useContext, createContext } from './context'
 export { useEffect } from './effect'
+export { useLayoutEffect } from './layoutEffect'
 export { useReducer } from './reducer'
 export { useMemo } from './memo'
 export { useRef } from './ref'
