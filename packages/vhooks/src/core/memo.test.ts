@@ -7,3 +7,10 @@ test('useMemo should return a ref', () => {
   const ref = useMemo(fn, deps)
   expect(isRef(ref)).toBe(true)
 })
+
+test('useMemo should return a read-only ref', () => {
+  const memo = useMemo(() => 1, [])
+  // @ts-expect-error we are testing the behavior
+  memo.value = 2
+  expect(memo.value).toBe(1)
+})
