@@ -1,11 +1,47 @@
 {
   "name": "@m9ch/vhooks-test-utils",
   "version": "0.1.0-alpha.9",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "source": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup ./src/index.ts",
+    "test": "vitest",
+    "prepublishOnly": "rimraf ./dist && pnpm build"
+  },
   "peerDependencies": {
-    "vitest": "^0.7.0"
+    "vitest": "^0.7.0",
+    "vue": "^3.2"
+  },
+  "dependencies": {
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/user-event": "^14.1.1",
+    "@testing-library/vue": "^6.4.2"
   },
   "devDependencies": {
-    "vitest": "^0.7.11"
+    "@vue/compiler-sfc": "^3.2.33",
+    "tsup": "^5.12.7",
+    "vitest": "^0.12.4",
+    "vue": "^3.2.33"
+  },
+  "tsup": {
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "dts": true,
+    "clean": true
   },
   "publishConfig": {
     "access": "public"
