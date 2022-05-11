@@ -3,7 +3,7 @@ import type {
   EffectCallback,
 } from '@m9ch/vhooks-types'
 import { toArray } from '@m9ch/vhooks-utils'
-import { reactive, watch } from 'vue-demi'
+import { queuePostFlushCb, watch } from 'vue-demi'
 import { argsChanged } from '../common'
 
 export interface Cleanup {
@@ -15,6 +15,8 @@ export interface Effect {
   (...args: any): void
   current?: EffectCallback
 }
+
+const queuePostRenderEffect = queuePostFlushCb
 
 export const useLayoutEffect = (fn: EffectCallback, deps?: DependencyList) => {
   const invokeCleanup: Cleanup = () => {
@@ -35,21 +37,19 @@ export const useLayoutEffect = (fn: EffectCallback, deps?: DependencyList) => {
 
   invokeEffect.current = fn
 
-  const flushPreRender = () => {
-    invokeCleanup()
-    invokeEffect()
-  }
-
-  // force watch always trigger callback before each rendering
-  const forceTrigger = !deps
-
-  // hack to make sure watch callback always triggered
-  if (forceTrigger) deps = [reactive({})]
-
-  return watch(toArray(deps), (newArgs, oldArgs, cleanup) => {
-    if (argsChanged(oldArgs, newArgs))
-      flushPreRender()
+  const stop = watch(deps ? toArray(deps) : [], (newArgs, oldArgs, cleanup) => {
+    // this will be called before render but before patch done
+    queuePostRenderEffect(() => {
+      if (argsChanged(oldArgs, newArgs)) {
+        invokeCleanup()
+        invokeEffect()
+      }
+    })
 
     cleanup(invokeCleanup)
-  }, { flush: 'pre' })
+  }, { flush: 'pre', deep: true })
+
+  queuePostRenderEffect(invokeEffect)
+
+  return stop
 }
