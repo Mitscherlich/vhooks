@@ -30,3 +30,67 @@ test('useEffect should always call function if no deps array provided', () => {
 
   expect(fn).toHaveBeenCalled()
 })
+
+test('useEffect should run only once if deps is empty', async() => {
+  const fn_1 = vitest.fn()
+  const fn_2 = vitest.fn()
+
+  const dep = useRef(1)
+
+  renderHook(() => {
+    useEffect(fn_1, [dep])
+    useEffect(fn_2, [])
+  })
+
+  expect(fn_1).toHaveBeenCalledTimes(1)
+  expect(fn_2).toHaveBeenCalledTimes(1)
+
+  dep.value = 2
+
+  await nextTick()
+
+  expect(fn_1).toHaveBeenCalledTimes(2)
+  expect(fn_2).toHaveBeenCalledTimes(1)
+})
+
+test('useEffect should call cleanup if return a function', async() => {
+  const fn = vitest.fn()
+
+  const dep = useRef(1)
+
+  renderHook(() => {
+    useEffect(() => fn, [dep])
+  })
+
+  expect(fn).not.toHaveBeenCalled()
+
+  dep.value = 2
+
+  await nextTick()
+
+  expect(fn).toHaveBeenCalled()
+})
+
+test('useEffect should call cleanup once after component dispose if deps is empty', async() => {
+  const fn_1 = vitest.fn()
+  const fn_2 = vitest.fn()
+
+  const dep = useRef(1)
+
+  const component = renderHook(() => {
+    useEffect(() => fn_1, [dep])
+    useEffect(() => fn_2, [])
+  })
+
+  dep.value = 2
+
+  await nextTick()
+
+  expect(fn_1).toHaveBeenCalled()
+  expect(fn_2).not.toHaveBeenCalled()
+
+  component.unmount()
+
+  expect(fn_1).toHaveBeenCalledTimes(2)
+  expect(fn_2).toHaveBeenCalledTimes(1)
+})

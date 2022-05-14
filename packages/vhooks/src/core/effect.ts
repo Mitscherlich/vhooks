@@ -3,7 +3,7 @@ import type {
   EffectCallback,
 } from '@m9ch/vhooks-types'
 import { toArray } from '@m9ch/vhooks-utils'
-import { queuePostFlushCb, watch } from 'vue-demi'
+import { getCurrentScope, onScopeDispose, queuePostFlushCb, watch } from 'vue-demi'
 import { argsChanged } from '../common'
 
 export interface Cleanup {
@@ -37,16 +37,19 @@ export const useEffect = (fn: EffectCallback, deps?: DependencyList) => {
 
   invokeEffect.current = fn
 
-  const stop = watch(deps ? toArray(deps) : [], (newArgs, oldArgs, cleanup) => {
+  const stop = watch(deps ? toArray(deps) : [], (newArgs, oldArgs) => {
     if (argsChanged(oldArgs, newArgs)) {
       invokeCleanup()
       invokeEffect()
     }
-
-    cleanup(invokeCleanup)
   }, { flush: 'post', deep: true })
 
   queuePostRenderEffect(invokeEffect)
 
-  return stop
+  if (getCurrentScope()) onScopeDispose(invokeCleanup)
+
+  return () => {
+    stop()
+    invokeCleanup()
+  }
 }
