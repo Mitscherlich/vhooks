@@ -3,7 +3,15 @@ import type {
   EffectCallback,
 } from '@m9ch/vhooks-types'
 import { toArray } from '@m9ch/vhooks-utils'
-import { getCurrentScope, onScopeDispose, queuePostFlushCb, watch } from 'vue-demi'
+import {
+  getCurrentScope,
+  isReactive,
+  isRef,
+  onScopeDispose,
+  queuePostFlushCb,
+  shallowRef,
+  watch,
+} from 'vue-demi'
 import { argsChanged } from '../common'
 
 export interface Cleanup {
@@ -37,7 +45,15 @@ export const useEffect = (fn: EffectCallback, deps?: DependencyList) => {
 
   invokeEffect.current = fn
 
-  const stop = watch(deps ? toArray(deps) : [], (newArgs, oldArgs) => {
+  let source: DependencyList
+  if (!deps)
+    source = []
+  else if (deps.some(dep => !isRef(dep) && !isReactive(dep)))
+    source = toArray(deps).map(dep => !isRef(dep) && !isReactive(dep) ? shallowRef(dep) : dep)
+  else
+    source = toArray(deps)
+
+  const stopWatch = watch(source, (newArgs, oldArgs) => {
     if (argsChanged(oldArgs, newArgs)) {
       invokeCleanup()
       invokeEffect()
@@ -46,10 +62,12 @@ export const useEffect = (fn: EffectCallback, deps?: DependencyList) => {
 
   queuePostRenderEffect(invokeEffect)
 
-  if (getCurrentScope()) onScopeDispose(invokeCleanup)
-
-  return () => {
-    stop()
+  const stop = () => {
+    stopWatch()
     invokeCleanup()
   }
+
+  if (getCurrentScope()) onScopeDispose(stop)
+
+  return stop
 }
