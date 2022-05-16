@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@m9ch/all']
+  extends: ['@m9ch/all'],
 }
