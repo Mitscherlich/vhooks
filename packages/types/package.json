@@ -15,7 +15,7 @@
     "build": "tsup ./src/index.ts"
   },
   "devDependencies": {
-    "vue": "^3.2.33"
+    "vue": "^3.2.36"
   },
   "tsup": {
     "format": [

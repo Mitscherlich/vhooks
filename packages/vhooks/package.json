@@ -39,8 +39,8 @@
     "@m9ch/vhooks-test-utils": "workspace:^",
     "jsdom": "^19.0.0",
     "rimraf": "^3.0.2",
-    "vitest": "^0.9.3",
-    "vue": "^3.2.33"
+    "vitest": "^0.12.9",
+    "vue": "^3.2.36"
   },
   "tsup": {
     "format": [
