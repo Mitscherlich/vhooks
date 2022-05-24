@@ -9,7 +9,7 @@ describe('useUpdate', () => {
     expect(stop).toBeInstanceOf(Function)
   })
 
-  it('should call effect function only after deps changed', async() => {
+  it('should call effect function only after deps changed', async () => {
     const fn = vitest.fn()
     const dummy = useRef(1)
     const deps = [dummy]

@@ -8,7 +8,7 @@ test('useEffect should return a stop function', () => {
   expect(stop).toBeInstanceOf(Function)
 })
 
-test('useEffect should take a function and deps array and call function after deps changed', async() => {
+test('useEffect should take a function and deps array and call function after deps changed', async () => {
   const fn = vitest.fn()
   const ref = useRef(1)
   const deps = [ref]
@@ -31,7 +31,7 @@ test('useEffect should always call function if no deps array provided', () => {
   expect(fn).toHaveBeenCalled()
 })
 
-test('useEffect should run only once if deps is empty', async() => {
+test('useEffect should run only once if deps is empty', async () => {
   const fn_1 = vitest.fn()
   const fn_2 = vitest.fn()
 
@@ -53,7 +53,7 @@ test('useEffect should run only once if deps is empty', async() => {
   expect(fn_2).toHaveBeenCalledTimes(1)
 })
 
-test('useEffect should call cleanup if return a function', async() => {
+test('useEffect should call cleanup if return a function', async () => {
   const fn = vitest.fn()
 
   const dep = useRef(1)
@@ -71,7 +71,7 @@ test('useEffect should call cleanup if return a function', async() => {
   expect(fn).toHaveBeenCalled()
 })
 
-test('useEffect should call cleanup once after component dispose if deps is empty', async() => {
+test('useEffect should call cleanup once after component dispose if deps is empty', async () => {
   const fn_1 = vitest.fn()
   const fn_2 = vitest.fn()
 

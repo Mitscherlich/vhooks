@@ -8,7 +8,7 @@ import {
   shallowRef,
   watch,
 } from 'vue-demi'
-import type { Effect, Cleanup } from '../types'
+import type { Cleanup, Effect } from '../types'
 import { argsChanged } from '../common'
 
 /**
@@ -53,7 +53,8 @@ export const useUpdate = (fn: EffectCallback, deps: DependencyList) => {
     invokeCleanup()
   }
 
-  if (getCurrentScope()) onScopeDispose(stop)
+  if (getCurrentScope())
+    onScopeDispose(stop)
 
   return stop
 }

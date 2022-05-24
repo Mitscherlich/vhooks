@@ -20,7 +20,8 @@ export const useReducer = <S, A>(
     state.value = reducer(unref(state) as S, action) as UnwrapRef<S>
   }
 
-  if (init != null) dispatch(init)
+  if (init != null)
+    dispatch(init)
 
   return [readonly(state) as DeepReadonly<Ref<S>>, dispatch]
 }
