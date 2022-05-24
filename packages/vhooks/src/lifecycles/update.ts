@@ -1,23 +1,20 @@
-import type {
-  DependencyList,
-  EffectCallback,
-} from '@m9ch/vhooks-types'
+import type { DependencyList, EffectCallback } from '@m9ch/vhooks-types'
 import { toArray } from '@m9ch/vhooks-utils'
 import {
   getCurrentScope,
   isReactive,
   isRef,
   onScopeDispose,
-  queuePostFlushCb,
   shallowRef,
   watch,
 } from 'vue-demi'
 import type { Effect, Cleanup } from '../types'
 import { argsChanged } from '../common'
 
-const queuePostRenderEffect = queuePostFlushCb
-
-export const useEffect = (fn: EffectCallback, deps?: DependencyList) => {
+/**
+ * similar to useEffect, but only call fn if deps has changed
+ */
+export const useUpdate = (fn: EffectCallback, deps: DependencyList) => {
   const invokeCleanup: Cleanup = () => {
     const { current } = invokeCleanup
     if (current) {
@@ -50,8 +47,6 @@ export const useEffect = (fn: EffectCallback, deps?: DependencyList) => {
       invokeEffect()
     }
   }, { flush: 'post', deep: true })
-
-  queuePostRenderEffect(invokeEffect)
 
   const stop = () => {
     stopWatch()
