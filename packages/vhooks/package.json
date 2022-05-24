@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsup ./src/index.ts",
     "lint": "eslint .",
-    "test": "vitest",
+    "test": "vitest run",
     "prepublishOnly": "rimraf ./dist && pnpm build"
   },
   "peerDependencies": {
