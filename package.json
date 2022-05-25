@@ -2,7 +2,7 @@
   "private": true,
   "version": "0.1.0-alpha.12",
   "scripts": {
-    "docs:build": "typedoc --tsconfig tsconfig.json",
+    "typedoc": "typedoc --tsconfig tsconfig.json",
     "build": "pnpm run -r --if-present build",
     "lint": "pnpm run -r --if-present lint",
     "test": "pnpm run -r --if-present test",
