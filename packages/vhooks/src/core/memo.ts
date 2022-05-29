@@ -5,11 +5,11 @@ import type { DeepReadonly } from '@m9ch/vhooks-types'
 /**
  * Similar to `React.useMemo`, but return a Vue.ref for the state.
  */
-export const useMemo = <T>(fn: () => T, deps: any[] = []): DeepReadonly<Ref<T>> => {
+export const useMemo = <T>(fn: () => T, deps?: any[]): DeepReadonly<Ref<T>> => {
   let value: T
   let dirty = true
 
-  const runner = effect(() => [fn(), ...deps], {
+  const runner = effect(() => deps ? [fn(), ...deps] : [fn()], {
     lazy: true,
     scheduler: () => {
       dirty = true // deps changed
