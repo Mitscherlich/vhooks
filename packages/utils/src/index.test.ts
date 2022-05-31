@@ -1,14 +1,4 @@
-import { copy, isObject, isPrimitive, shallowEqual } from './index'
-
-test('isPrimitive should return true for string, number and boolean', () => {
-  expect(isPrimitive('string')).toBe(true)
-  expect(isPrimitive(1)).toBe(true)
-  expect(isPrimitive(true)).toBe(true)
-})
-
-test('isPrimitive should return false for object', () => {
-  expect(isPrimitive({})).toBe(false)
-})
+import { copy, isObject, shallowEqual } from './index'
 
 test('isObject should return true for object', () => {
   expect(isObject({})).toBe(true)

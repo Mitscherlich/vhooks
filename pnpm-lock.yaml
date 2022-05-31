@@ -51,8 +51,11 @@ importers:
 
   packages/utils:
     specifiers:
+      '@m9ch/utils': ^0.2.0
       '@m9ch/vhooks-test-utils': workspace:^
       vitest: ^0.12.9
+    dependencies:
+      '@m9ch/utils': 0.2.0
     devDependencies:
       '@m9ch/vhooks-test-utils': link:../test-utils
       vitest: 0.12.9
@@ -461,6 +464,10 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /@m9ch/utils/0.2.0:
+    resolution: {integrity: sha512-MxLbVGOidH1itTXGMAxZMpSav/eQErfVaWY3jM3pqwRNZ4kF987SBffoPhgU9L5VD8Zy8twhL7c4zjyvDuJ6eQ==}
+    dev: false
 
   /@manypkg/find-root/1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}

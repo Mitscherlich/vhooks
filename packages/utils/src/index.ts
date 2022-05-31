@@ -1,8 +1,4 @@
-export { toArray, remove } from './array'
-
-export const isPrimitive = (val: any): val is string | number | boolean => {
-  return ['string', 'number', 'boolean'].includes(typeof val)
-}
+import { isDef, isPrimitive, remove, toArray } from '@m9ch/utils'
 
 export const isObject = (val: any): val is object => {
   return typeof val === 'object' && val !== null
@@ -20,7 +16,6 @@ export const shallowEqual = (a: any, b: any): boolean => {
       if (!keysB.includes(key) || !shallowEqual(a[key], b[key]))
         return false
     }
-
     return true
   }
   return false
@@ -36,5 +31,9 @@ export const copy = <T>(val: T): T => {
   }
   return val
 }
+
+export { isDef, isPrimitive, toArray, remove }
+
+export * from './events'
 
 export * as fn from './fn'
