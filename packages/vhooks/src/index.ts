@@ -19,4 +19,6 @@ export {
 
 export {
   useCountdown,
+  useEvent,
+  useEventBus,
 } from './misc'
