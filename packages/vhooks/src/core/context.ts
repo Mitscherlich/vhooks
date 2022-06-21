@@ -14,7 +14,7 @@ export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: Injection
   context.Provider = defineComponent<ProviderProps<T>>((props, ctx) => {
     const { value } = toRefs(props)
     watch([value], ([contextValue]) => {
-      context._context = contextValue
+      context._context = contextValue as T
     }, { immediate: true })
     provide(context._contextId, context._context)
     return () => ctx.slots.default?.()
