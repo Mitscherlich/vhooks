@@ -38,7 +38,7 @@ export interface ProviderProps<T> {
 
 export interface Context<T> {
   _context: T
-  _contextId: InjectionKey<Ref<T>>
+  _contextId: InjectionKey<T>
   Provider: DefineComponent<ProviderProps<T>>
   Consumer: DefineComponent<{}>
 }
