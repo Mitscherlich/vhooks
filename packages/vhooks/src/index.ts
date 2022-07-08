@@ -21,4 +21,5 @@ export {
   useCountdown,
   useEvent,
   useEventBus,
+  useFetch,
 } from './misc'
