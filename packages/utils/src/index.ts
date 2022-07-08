@@ -37,3 +37,5 @@ export { isDef, isPrimitive, toArray, remove }
 export * from './events'
 
 export * as fn from './fn'
+
+export * from './object'

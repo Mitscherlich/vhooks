@@ -22,4 +22,5 @@ export {
   useEvent,
   useEventBus,
   useFetch,
+  usePagination,
 } from './misc'
