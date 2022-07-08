@@ -2,4 +2,4 @@
 
 Missing React-like hooks in vue Composition API.
 
-Checkout [./packages/vhooks] for more details.
+Checkout [./packages/vhooks](./packages/vhooks) for more details.
