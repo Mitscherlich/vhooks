@@ -106,12 +106,16 @@ export const useCountdown = (timeout?: MaybeRef<number>, options?: CountdownOpti
     }
   }
 
-  useEffect(() => {
+  const reset = () => {
     const currentTimeout = unref(timeout)
     setTotalMilliseconds(currentTimeout)
     setEndTime(Date.now() + currentTimeout)
     if (autoStart)
       start()
+  }
+
+  useEffect(() => {
+    reset()
   }, [timeout])
 
   const days = useMemo(() => Math.floor(totalMilliseconds.value / MILLISECONDS_DAY))
@@ -161,5 +165,6 @@ export const useCountdown = (timeout?: MaybeRef<number>, options?: CountdownOpti
     start,
     pause,
     abort,
+    reset,
   }
 }
