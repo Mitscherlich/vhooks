@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.1.0-alpha.16",
+  "version": "0.1.0-alpha.17",
   "scripts": {
     "typedoc": "typedoc --tsconfig tsconfig.json",
     "build": "pnpm run -r --if-present build",
