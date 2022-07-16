@@ -11,6 +11,7 @@ export {
   useRef,
   useReducer,
   useState,
+  useUpdateEffect,
 } from './core'
 
 export {
