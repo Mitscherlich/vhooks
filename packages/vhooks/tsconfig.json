@@ -4,6 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "skipLibCheck": true,
+    "jsx": "preserve",
     "types": [
       "vitest/globals"
     ]
