@@ -1,5 +1,7 @@
 import type { DefineComponent, InjectionKey, Ref } from 'vue'
 
+export type Fn<T> = (...args: any[]) => T
+
 export type MaybeRef<T> = T | Ref<T>
 
 type Unwrap<T> = T extends Record<string, infer U>

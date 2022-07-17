@@ -62,19 +62,23 @@ importers:
 
   packages/vhooks:
     specifiers:
+      '@m9ch/utils': ^0.2.0
       '@m9ch/vhooks-test-utils': workspace:^
       '@m9ch/vhooks-types': workspace:^
       '@m9ch/vhooks-utils': workspace:^
       '@vitejs/plugin-vue-jsx': ^2.0.0
       jsdom: ^19.0.0
+      lodash: ^4.17.21
       rimraf: ^3.0.2
       vite: ^3.0.0
       vitest: ^0.12.9
       vue: ^3.2.36
       vue-demi: ^0.12.4
     dependencies:
+      '@m9ch/utils': 0.2.0
       '@m9ch/vhooks-types': link:../types
       '@m9ch/vhooks-utils': link:../utils
+      lodash: 4.17.21
       vue-demi: 0.12.4_vue@3.2.36
     devDependencies:
       '@m9ch/vhooks-test-utils': link:../test-utils
@@ -3614,7 +3618,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
