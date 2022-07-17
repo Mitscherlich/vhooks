@@ -67,6 +67,7 @@ importers:
       '@m9ch/vhooks-types': workspace:^
       '@m9ch/vhooks-utils': workspace:^
       '@vitejs/plugin-vue-jsx': ^2.0.0
+      dayjs: ^1.11.3
       jsdom: ^19.0.0
       lodash: ^4.17.21
       rimraf: ^3.0.2
@@ -78,6 +79,7 @@ importers:
       '@m9ch/utils': 0.2.0
       '@m9ch/vhooks-types': link:../types
       '@m9ch/vhooks-utils': link:../utils
+      dayjs: 1.11.3
       lodash: 4.17.21
       vue-demi: 0.12.4_vue@3.2.36
     devDependencies:
@@ -1763,6 +1765,10 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
     dev: true
+
+  /dayjs/1.11.3:
+    resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

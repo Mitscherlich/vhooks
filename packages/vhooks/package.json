@@ -34,6 +34,7 @@
     "@m9ch/utils": "^0.2.0",
     "@m9ch/vhooks-types": "workspace:^",
     "@m9ch/vhooks-utils": "workspace:^",
+    "dayjs": "^1.11.3",
     "lodash": "^4.17.21",
     "vue-demi": "^0.12.4"
   },
