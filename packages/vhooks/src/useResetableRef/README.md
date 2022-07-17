@@ -4,7 +4,7 @@ Returns a `Ref` and a `Function` which can reset the `Ref` to its initial value.
 
 ## Example
 
-## Basic usage
+### Basic usage
 
 ```html
 <script setup>
@@ -19,4 +19,10 @@ const [count, reset] = useResetableRef(0)
   <button @click="count -= 1">decrease</button>
   <button @click="reset()">reset</button>
 </template>
+```
+
+## API
+
+```ts
+function useResetableRef<T>(initialValue: MaybeRef<T>): [Ref<T>, (newVal?: MaybeRef<T>) => void]
 ```

@@ -18,3 +18,9 @@ const update = useUpdate()
   <button @click="update">update</button>
 </template>
 ```
+
+## API
+
+```ts
+function useUpdate(): () => void
+```

@@ -9,6 +9,8 @@ import useReducer from './useReducer'
 import useRef from './useRef'
 import useResetableRef from './useResetableRef'
 import useState from './useState'
+import useThrottleEffect from './useThrottleEffect'
+import useThrottleFn from './useThrottleFn'
 import useUpdate from './useUpdate'
 import useUpdateEffect from './useUpdateEffect'
 
@@ -24,6 +26,8 @@ export {
   useRef,
   useResetableRef,
   useState,
+  useThrottleEffect,
+  useThrottleFn,
   useUpdate,
   useUpdateEffect,
 }

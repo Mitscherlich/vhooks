@@ -2,7 +2,7 @@ import type {
   ReturnValue,
 } from '@m9ch/vhooks-types'
 import type { Ref } from 'vue-demi'
-import { useReducer } from '../useReducer'
+import useReducer from '../useReducer'
 
 export type BasicStateAction<S> = ((S) => S) | S
 

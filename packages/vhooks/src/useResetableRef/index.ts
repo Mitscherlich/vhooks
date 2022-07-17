@@ -1,9 +1,8 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import type { Ref } from 'vue-demi'
 import { unref } from 'vue-demi'
 import useRef from '../useRef'
 
-export default function useResetableRef<T>(initialValue: MaybeRef<T>): [Ref<T>, (value?: MaybeRef<T>) => void] {
+export default function useResetableRef<T>(initialValue: MaybeRef<T>) {
   const originValue = unref(initialValue)
 
   const ref = useRef(initialValue)
@@ -12,5 +11,5 @@ export default function useResetableRef<T>(initialValue: MaybeRef<T>): [Ref<T>, 
     ref.value = unref(newVal)
   }
 
-  return [ref, reset]
+  return [ref, reset] as const
 }

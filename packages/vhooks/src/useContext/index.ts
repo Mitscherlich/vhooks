@@ -1,5 +1,5 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import type { DefineComponent, InjectionKey } from 'vue-demi'
+import type { DefineComponent, InjectionKey, Ref } from 'vue-demi'
 import {
   defineComponent,
   inject,
@@ -15,7 +15,7 @@ export type ContextId<T> = InjectionKey<{ value: T }>
 export interface Context<T> {
   _contextId: ContextId<T>
   _contextValue: MaybeRef<T>
-  Provider: DefineComponent<{ value: MaybeRef<T> }>
+  Provider: DefineComponent<{ value: Ref<T> }>
   Consumer: DefineComponent<{}>
 }
 
