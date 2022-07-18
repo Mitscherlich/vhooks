@@ -1,3 +1,4 @@
+import useAsyncEffect from './useAsyncEffect'
 import useCallback from './useCallback'
 import useDeepCompareEffect from './useDeepCompareEffect'
 import useDebounceEffect from './useDebounceEffect'
@@ -17,6 +18,7 @@ import useUpdate from './useUpdate'
 import useUpdateEffect from './useUpdateEffect'
 
 export {
+  useAsyncEffect,
   useCallback,
   useDeepCompareEffect,
   useDebounceEffect,

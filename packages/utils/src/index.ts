@@ -1,8 +1,10 @@
 import { isDef, isPrimitive, remove, toArray } from '@m9ch/utils'
 
-export const isObject = (val: any): val is object => {
+export const isObject = (val: unknown): val is object => {
   return typeof val === 'object' && val !== null
 }
+
+export const isFunction = (val: unknown): val is Function => typeof val === 'function'
 
 export const shallowEqual = (a: any, b: any): boolean => {
   if (isPrimitive(a) || isPrimitive(b))
