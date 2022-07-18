@@ -1,4 +1,6 @@
+import type { MaybeRef } from '@m9ch/vhooks-types'
 import useEffect from '../useEffect'
+import useLatest from '../useLatest'
 import useRef from '../useRef'
 import useState from '../useState'
 
@@ -19,12 +21,14 @@ interface loadResult {
   status: Status
 }
 
-function useExternal(path?: string, options?: Options) {
-  const [status, setStatus] = useState<Status>(path ? 'loading' : 'unset')
+function useExternal(path?: MaybeRef<string>, options?: Options) {
+  const pathRef = useLatest(path)
+  const [status, setStatus] = useState<Status>(pathRef.value ? 'loading' : 'unset')
 
   const ref = useRef<Element>()
 
   useEffect(() => {
+    const path = pathRef.value
     if (!path) {
       setStatus('unset')
       return
