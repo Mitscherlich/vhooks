@@ -4,6 +4,7 @@ import useDeepCompareEffect from './useDeepCompareEffect'
 import useDebounceEffect from './useDebounceEffect'
 import useDebounceFn from './useDebounceFn'
 import useEffect from './useEffect'
+import useEventEmitter from './useEventEmitter'
 import useExternal from './useExternal'
 import useLatest from './useLatest'
 import useLockFn from './useLockFn'
@@ -24,6 +25,7 @@ export {
   useDebounceEffect,
   useDebounceFn,
   useEffect,
+  useEventEmitter,
   useExternal,
   useLatest,
   useLockFn,
