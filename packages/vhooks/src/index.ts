@@ -4,6 +4,8 @@ import useDebounceEffect from './useDebounceEffect'
 import useDebounceFn from './useDebounceFn'
 import useEffect from './useEffect'
 import useExternal from './useExternal'
+import useLatest from './useLatest'
+import useLockFn from './useLockFn'
 import useMemo from './useMemo'
 import useReducer from './useReducer'
 import useRef from './useRef'
@@ -21,6 +23,8 @@ export {
   useDebounceFn,
   useEffect,
   useExternal,
+  useLatest,
+  useLockFn,
   useMemo,
   useReducer,
   useRef,
