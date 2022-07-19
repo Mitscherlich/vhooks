@@ -1,6 +1,6 @@
 {
-  "private": true,
   "version": "0.1.0-beta.1",
+  "private": true,
   "scripts": {
     "typedoc": "typedoc --tsconfig tsconfig.json",
     "build": "pnpm run -r --if-present build",
@@ -9,13 +9,11 @@
     "release": "bumpp package.json packages/*/package.json --commit --push && pnpm -r publish --access public"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.22.0",
-    "@m9ch/eslint-config-all": "^0.2.2",
+    "@m9ch/eslint-config-all": "^0.2.3",
     "@types/node": "*",
-    "bumpp": "^7.1.1",
-    "eslint": "^8.16.0",
-    "tsup": "^5.12.8",
-    "typedoc": "^0.22.15",
-    "typescript": "^4.6.4"
+    "bumpp": "^8.2.1",
+    "eslint": "^8.20.0",
+    "tsup": "^6.1.3",
+    "typescript": "^4.7.4"
   }
 }
