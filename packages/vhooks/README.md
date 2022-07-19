@@ -14,7 +14,11 @@ Missing React-like hooks in vue Composition API.
 | [useMemo](./src/useMemo/README.md) | Returns a `Readonly<Ref>` of memoized value |
 | [useRef](./src/useRef/README.md) | An alternative to `ref` |
 | [useUpdate](./src/useUpdate/README.md) | Returns a function which can be used to force the component re-render |
+| [useLatest](./src/useLatest/README.md) | Returns a `Ref` which always return a latest value |
+| [useLockFn](./src/useLockFn/README.md) | Add a lock to an async function to prevent parallel executions |
+| [useAsyncEffect](./src/useAsyncEffect/README.md) | Similar with `useEffect` but support async function |
 | [useCountDown](./src/useCountDown/README.md) | Simple countdown timer, returns states and control functions |
+| [useEventEmitter](./src/useEventEmitter/README.md) | Simple publisher/subscriber pattern implement |
 | [useResetableRef](./src/useResetableRef/README.md) | Returns `Ref` and a reset function to reset to initial value |
 | [useUpdateEffect](./src/useUpdateEffect/README.md) | A hook alike `useEffect` but skips running the effect for the first time |
 | [useDeepCompareEffect](./src/useDeepCompareEffect/README.md) | Usage is the same as `useEffect`, but deps are compared with [lodash.isEqual](https://lodash.com/docs/4.17.15#isEqual) |
