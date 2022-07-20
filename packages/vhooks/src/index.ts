@@ -11,6 +11,7 @@ import useLatest from './useLatest'
 import useLockFn from './useLockFn'
 import useMemo from './useMemo'
 import usePrevious from './usePrevious'
+import useRafInterval from './useRafInterval'
 import useReducer from './useReducer'
 import useRef from './useRef'
 import useResetableRef from './useResetableRef'
@@ -34,6 +35,7 @@ export {
   useLockFn,
   useMemo,
   usePrevious,
+  useRafInterval,
   useReducer,
   useRef,
   useResetableRef,

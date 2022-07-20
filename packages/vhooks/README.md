@@ -27,3 +27,4 @@ Missing React-like hooks in vue Composition API.
 | [useDebounceEffect](./src/useDebounceEffect/README.md) | Debounced `useEffect` |
 | [useThrottleFn](./src/useThrottleFn/README.md) | A hook that deals with the throttled function |
 | [useThrottleEffect](./src/useThrottleEffect/README.md) | Throttled `useEffect` |
+| [useRafInterval](./src/useRafInterval/README.md) | A hook implements with `requestAnimationFrame` for better performance |
