@@ -10,6 +10,7 @@ import useExternal from './useExternal'
 import useLatest from './useLatest'
 import useLockFn from './useLockFn'
 import useMemo from './useMemo'
+import usePrevious from './usePrevious'
 import useReducer from './useReducer'
 import useRef from './useRef'
 import useResetableRef from './useResetableRef'
@@ -32,6 +33,7 @@ export {
   useLatest,
   useLockFn,
   useMemo,
+  usePrevious,
   useReducer,
   useRef,
   useResetableRef,

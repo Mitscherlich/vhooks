@@ -13,6 +13,7 @@ Missing React-like hooks in vue Composition API.
 | [useCallback](./src/useCallback/README.md) | Returns a `Readonly<Ref>` of memoized callback |
 | [useMemo](./src/useMemo/README.md) | Returns a `Readonly<Ref>` of memoized value |
 | [useRef](./src/useRef/README.md) | An alternative to `ref` |
+| [usePrevious](./src/usePrevious/README.md) | A Hook to return the previous state |
 | [useUpdate](./src/useUpdate/README.md) | Returns a function which can be used to force the component re-render |
 | [useLatest](./src/useLatest/README.md) | Returns a `Ref` which always return a latest value |
 | [useLockFn](./src/useLockFn/README.md) | Add a lock to an async function to prevent parallel executions |
