@@ -28,3 +28,4 @@ Missing React-like hooks in vue Composition API.
 | [useThrottleFn](./src/useThrottleFn/README.md) | A hook that deals with the throttled function |
 | [useThrottleEffect](./src/useThrottleEffect/README.md) | Throttled `useEffect` |
 | [useRafInterval](./src/useRafInterval/README.md) | A hook implements with `requestAnimationFrame` for better performance |
+| [useRafState](./src/useRafState/README.md) | Update the state in [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) callback |
