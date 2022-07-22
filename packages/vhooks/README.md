@@ -1,6 +1,6 @@
 # @m9ch/vhooks
 
-Missing React-like hooks in vue Composition API.
+Missing React-like hooks in Vue Composition API.
 
 ## All hooks
 
@@ -30,3 +30,4 @@ Missing React-like hooks in vue Composition API.
 | [useRafInterval](./src/useRafInterval/README.md) | A hook implements with `requestAnimationFrame` for better performance |
 | [useRafTimeout](./src/useRafTimeout/README.md) | A hook implements with `requestAnimationFrame` for better performance |
 | [useRafState](./src/useRafState/README.md) | Update the state in [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) callback |
+| [useRequest](./src/useRequest/README.md) | A powerful hook for asynchronous data management |

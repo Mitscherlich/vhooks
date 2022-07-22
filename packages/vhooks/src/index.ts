@@ -15,6 +15,7 @@ import useRafInterval from './useRafInterval'
 import useRafState from './useRafState'
 import useReducer from './useReducer'
 import useRef from './useRef'
+import useRequest from './useRequest'
 import useResetableRef from './useResetableRef'
 import useState from './useState'
 import useThrottleEffect from './useThrottleEffect'
@@ -40,6 +41,7 @@ export {
   useRafState,
   useReducer,
   useRef,
+  useRequest,
   useResetableRef,
   useState,
   useThrottleEffect,
@@ -49,3 +51,5 @@ export {
 }
 
 export { createContext } from './useContext'
+
+export { clearCache } from './useRequest'
