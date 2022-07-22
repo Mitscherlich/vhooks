@@ -5,6 +5,9 @@ export const isObject = (val: unknown): val is object => {
 }
 
 export const isFunction = (val: unknown): val is Function => typeof val === 'function'
+export const isBoolean = (val: unknown): val is boolean => typeof val === 'boolean'
+export const isNumber = (val: unknown): val is number => typeof val === 'number'
+export const isUndef = (val: unknown): val is undefined => typeof val === 'undefined'
 
 export const shallowEqual = (a: any, b: any): boolean => {
   if (isPrimitive(a) || isPrimitive(b))
