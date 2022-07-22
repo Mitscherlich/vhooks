@@ -1,5 +1,5 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import { onMounted, onUnmounted } from 'vue-demi'
+import { onMounted, onUnmounted, readonly, toRefs } from 'vue-demi'
 import useLatest from '../useLatest'
 import useUpdate from '../useUpdate'
 import type { Options, Plugin, Result, Service } from './types'
@@ -48,11 +48,13 @@ export default function useRequestImplement<TData, TParams extends any[]>(
     fetchInstance.cancel()
   })
 
+  const { loading, data, error, params } = toRefs(fetchInstance.state)
+
   return {
-    loading: fetchInstance.state.loading,
-    data: fetchInstance.state.data,
-    error: fetchInstance.state.error,
-    params: fetchInstance.state.params || [],
+    loading: readonly(loading),
+    data: readonly(data),
+    error: readonly(error),
+    params: readonly(params),
     cancel: fetchInstance.cancel.bind(fetchInstance),
     refresh: fetchInstance.refresh.bind(fetchInstance),
     refreshAsync: fetchInstance.refreshAsync.bind(fetchInstance),

@@ -1,5 +1,6 @@
 import { isFunction } from '@m9ch/vhooks-utils'
 import type { Ref } from 'vue-demi'
+import { reactive } from 'vue-demi'
 import type { FetchState, Options, PluginReturn, Service, Subscribe } from './types'
 
 export default class Fetch<TData, TParams extends any[]> {
@@ -7,12 +8,12 @@ export default class Fetch<TData, TParams extends any[]> {
 
   count = 0
 
-  state: FetchState<TData, TParams> = {
+  state: FetchState<TData, TParams> = reactive({
     loading: false,
     params: undefined,
     data: undefined,
     error: undefined,
-  }
+  })
 
   constructor(
     public serviceRef: Ref<Service<TData, TParams>>,
@@ -36,8 +37,7 @@ export default class Fetch<TData, TParams extends any[]> {
   }
 
   runPluginHandler(event: keyof PluginReturn<TData, TParams>, ...rest: any[]) {
-    // @ts-expect-error rest not satisfy the type of PluginReturn<TData, TParams>
-    const r = this.pluginImpls.map(i => i[event]?.(...rest)).filter(Boolean)
+    const r = this.pluginImpls.map(i => i[event]?.apply(null, rest)).filter(Boolean)
     return Object.assign({}, ...r)
   }
 
@@ -139,13 +139,11 @@ export default class Fetch<TData, TParams extends any[]> {
   }
 
   refresh() {
-    // @ts-expect-error params may not satisfy the type of TParams
-    this.run(...(this.state.params || []))
+    this.run(...(this.state.params || []) as TParams)
   }
 
   refreshAsync() {
-    // @ts-expect-error params may not satisfy the type of TParams
-    return this.runAsync(...(this.state.params || []))
+    return this.runAsync(...(this.state.params || []) as TParams)
   }
 
   mutate(data?: TData | ((oldData?: TData) => TData | undefined)) {
