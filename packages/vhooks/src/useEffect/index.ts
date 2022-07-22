@@ -2,7 +2,7 @@ import type {
   DependencyList,
   EffectCallback,
 } from '@m9ch/vhooks-types'
-import { toArray } from '@m9ch/vhooks-utils'
+import { toArray } from '@m9ch/utils'
 import {
   getCurrentScope,
   isReactive,
