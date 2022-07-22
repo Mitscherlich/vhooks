@@ -1,5 +1,6 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import { DeepReadonly, readonly, Ref } from 'vue-demi'
+import type { DeepReadonly, Ref } from 'vue-demi'
+import { readonly } from 'vue-demi'
 import useLatest from '../useLatest'
 import useRef from '../useRef'
 
