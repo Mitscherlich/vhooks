@@ -1,6 +1,5 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
 import { unref } from 'vue-demi'
-import useCallback from '../useCallback'
 import useEffect from '../useEffect'
 import useLatest from '../useLatest'
 import useRef from '../useRef'
@@ -38,10 +37,10 @@ function useRafInterval(
     }
   }, [delay])
 
-  const clear = useCallback(() => {
+  const clear = () => {
     if (timerRef.value)
       clearRafInterval(timerRef.value)
-  }, [])
+  }
 
   return clear
 }
