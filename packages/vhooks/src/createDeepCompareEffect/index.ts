@@ -1,5 +1,5 @@
 import type { DependencyList, EffectCallback } from '@m9ch/vhooks-types'
-import { watchEffect } from 'vue-demi'
+import { watch } from 'vue-demi'
 import isEqual from 'lodash/isEqual'
 import useRef from '../useRef'
 
@@ -9,9 +9,9 @@ export const createDeepCompareEffect = (hook: EffectHookType) => (effect: Effect
   const ref = useRef<DependencyList>()
   const signalRef = useRef(0)
 
-  watchEffect(() => {
-    if (deps === undefined || !depsEqual(deps, ref.value)) {
-      ref.value = deps
+  watch(deps as any[], (_deps, oldDeps) => {
+    if (deps === undefined || !depsEqual(_deps, oldDeps)) {
+      ref.value = oldDeps
       signalRef.value += 1
     }
   })
