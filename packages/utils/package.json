@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@m9ch/vhooks-test-utils": "workspace:^",
-    "vitest": "^0.12.9"
+    "vitest": "^0.19.1"
   },
   "tsup": {
     "format": [
