@@ -12,16 +12,16 @@ function createRenderer<TProps, TResult>(rendererProps: RendererProps<TProps, TR
 
   return {
     render: (props?: TProps) => {
-      return instance ??= render(testHarness(props), { container })
+      if (!instance)
+        instance = render(testHarness(props), { container })
     },
     rerender: (props?: TProps) => {
-      if (!instance)
-        throw new Error('Cannot rerender before rendering')
-
-      return instance.rerender(props as any)
+      if (instance)
+        instance.rerender((props ?? {}) as any)
     },
     unmount: () => {
-      return instance.unmount()
+      if (instance)
+        instance.unmount()
     },
     act,
   } as Renderer<TProps>
