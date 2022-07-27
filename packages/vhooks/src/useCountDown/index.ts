@@ -1,12 +1,14 @@
 import dayjs from 'dayjs'
+import { isNumber } from '@m9ch/vhooks-utils'
 import useEffect from '../useEffect'
 import useMemo from '../useMemo'
 import useState from '../useState'
 import useLatest from '../useLatest'
 
-export type TDate = Date | number | string | undefined
+export type TDate = dayjs.ConfigType
 
 export interface Options {
+  leftTime?: number
   targetDate?: TDate
   interval?: number
   onEnd?: () => void
@@ -20,16 +22,13 @@ export interface FormattedRes {
   milliseconds: number
 }
 
-const calcLeft = (t?: TDate) => {
-  if (!t)
+const calcLeft = (target?: TDate) => {
+  if (!target)
     return 0
 
   // https://stackoverflow.com/questions/4310953/invalid-date-in-safari
-  const left = dayjs(t).valueOf() - new Date().getTime()
-  if (left < 0)
-    return 0
-
-  return left
+  const left = dayjs(target).valueOf() - Date.now()
+  return left < 0 ? 0 : left
 }
 
 const parseMs = (milliseconds: number): FormattedRes => {
@@ -43,24 +42,31 @@ const parseMs = (milliseconds: number): FormattedRes => {
 }
 
 export default function useCountDown(options: Options = {}) {
-  const { targetDate, interval = 1000, onEnd } = options || {}
+  const { leftTime, targetDate, interval = 1000, onEnd } = options || {}
 
-  const [timeLeft, setTimeLeft] = useState<number>(calcLeft(targetDate))
+  const target = useMemo<TDate>(() => {
+    if ('leftTime' in options)
+      return isNumber(leftTime) && leftTime > 0 ? Date.now() + leftTime : undefined
+    else
+      return targetDate
+  }, [leftTime, targetDate])
+
+  const [timeLeft, setTimeLeft] = useState(calcLeft(target.value))
 
   const onEndRef = useLatest(onEnd)
 
   useEffect(() => {
-    if (!targetDate) {
+    if (!target.value) {
       // for stop
       setTimeLeft(0)
       return
     }
 
     // 立即执行一次
-    setTimeLeft(calcLeft(targetDate))
+    setTimeLeft(calcLeft(target.value))
 
     const timer = setInterval(() => {
-      const targetLeft = calcLeft(targetDate)
+      const targetLeft = calcLeft(target.value)
       setTimeLeft(targetLeft)
       if (targetLeft === 0) {
         clearInterval(timer)
@@ -71,9 +77,7 @@ export default function useCountDown(options: Options = {}) {
     return () => clearInterval(timer)
   }, [targetDate, interval])
 
-  const formattedRes = useMemo(() => {
-    return parseMs(timeLeft.value)
-  }, [timeLeft])
+  const formattedRes = useMemo(() => parseMs(timeLeft.value), [timeLeft])
 
   return [timeLeft, formattedRes] as const
 }
