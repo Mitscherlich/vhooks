@@ -9,11 +9,11 @@
     "release": "bumpp package.json packages/*/package.json --commit --push && pnpm -r publish --access public"
   },
   "devDependencies": {
-    "@m9ch/eslint-config-all": "^0.2.3",
+    "@m9ch/eslint-config-all": "^0.2.4",
     "@types/node": "*",
     "bumpp": "^8.2.1",
     "eslint": "^8.20.0",
-    "tsup": "^6.1.3",
+    "tsup": "^6.2.0",
     "typescript": "^4.7.4"
   }
 }
