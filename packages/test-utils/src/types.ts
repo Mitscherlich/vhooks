@@ -27,6 +27,10 @@ export interface RenderHookOptions<TProps> {
   initialProps?: TProps
 }
 
+export interface RenderHookResult<TProps, TValue> extends Omit<Renderer<TProps>, 'render' | 'act'> {
+  result: RenderResult<TValue>
+}
+
 export interface Act {
   (callback: () => Promise<void | undefined>): Promise<undefined>
   (callback: () => void | undefined): void

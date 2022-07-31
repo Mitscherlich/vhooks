@@ -99,6 +99,10 @@ const renderHook = createRenderHook(createRenderer)
 
 export { renderHook, act }
 
+export * from './helpers'
+
+export * from './types'
+
 export * from '@testing-library/dom'
 
 export * from '@testing-library/user-event'

@@ -28,8 +28,8 @@ export default function useThrottleFn<T extends noop>(fn: MaybeRef<T>, options?:
     throttled.value.cancel()
   })
 
-  const run = () => {
-    throttled.value()
+  const run = function (...args: Parameters<T>) {
+    throttled.value.apply(this, args)
   }
 
   const cancel = () => {

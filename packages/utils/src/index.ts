@@ -7,8 +7,4 @@ export const isBoolean = (val: unknown): val is boolean => typeof val === 'boole
 export const isNumber = (val: unknown): val is number => typeof val === 'number'
 export const isUndef = (val: unknown): val is undefined => typeof val === 'undefined'
 
-export const sleep = (ms: number) => new Promise((resolve) => {
-  setTimeout(resolve, ms)
-})
-
 export { isBrowser } from './isBrowser'

@@ -28,8 +28,8 @@ export default function useDebounceFn<T extends noop>(fn: MaybeRef<T>, options?:
     debounced.value.cancel()
   })
 
-  const run = () => {
-    debounced.value()
+  const run = function (...args: Parameters<T>) {
+    debounced.value.apply(this, args)
   }
 
   const cancel = () => {

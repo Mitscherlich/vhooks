@@ -1,10 +1,11 @@
 import type { Dispatch, Action as SetStateAction } from '@m9ch/vhooks-types'
+import type { DeepReadonly, Ref } from 'vue-demi'
 import { onUnmounted } from 'vue-demi'
 import useRef from '../useRef'
 import useState from '../useState'
 
-function useRafState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>]
-function useRafState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>]
+function useRafState<S>(initialState: S | (() => S)): [DeepReadonly<Ref<S | undefined>>, Dispatch<SetStateAction<S> | S>]
+function useRafState<S = undefined>(): [DeepReadonly<Ref<S | undefined>>, Dispatch<SetStateAction<S | undefined> | S | undefined>]
 
 function useRafState<S>(initialState?: S | (() => S)) {
   const ref = useRef(0)

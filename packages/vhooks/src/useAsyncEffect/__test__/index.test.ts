@@ -1,5 +1,4 @@
-import { act, renderHook } from '@m9ch/vhooks-test-utils'
-import { sleep } from '@m9ch/vhooks-utils'
+import { act, renderHook, sleep } from '@m9ch/vhooks-test-utils'
 import { unref } from 'vue'
 import useAsyncEffect from '../index'
 import useState from '../../useState'
