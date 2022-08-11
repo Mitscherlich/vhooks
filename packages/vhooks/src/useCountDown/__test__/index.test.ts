@@ -11,7 +11,6 @@ describe('useCountDown', () => {
     vi.useFakeTimers()
     vi.setSystemTime(1479427200000)
   })
-
   afterAll(() => {
     vi.useRealTimers()
   })
@@ -42,31 +41,33 @@ describe('useCountDown', () => {
     expect(formattedRes.value.milliseconds).toBe(0)
   })
 
-  // it('should work manually', () => {
+  // it('should work manually', async () => {
   //   const { result, rerender } = setup({ interval: 100 })
 
-  //   rerender({ targetDate: Date.now() + 5000, interval: 1000 })
-  //   expect(result.current[0]).toBe(5000)
-  //   expect(result.current[1].seconds).toBe(5)
+  //   console.log('111')
+  //   await rerender({ targetDate: Date.now() + 5000, interval: 1000 })
+  //   console.log('222')
+  //   expect(result.current[0].value).toBe(5000)
+  //   expect(result.current[1].value.seconds).toBe(5)
 
-  //   act(() => {
+  //   await act(() => {
   //     vi.advanceTimersByTime(1000)
   //   })
-  //   expect(result.current[0]).toBe(4000)
-  //   expect(result.current[1].seconds).toBe(4)
+  //   expect(result.current[0].value).toBe(4000)
+  //   expect(result.current[1].value.seconds).toBe(4)
 
-  //   act(() => {
+  //   await act(() => {
   //     vi.advanceTimersByTime(4000)
   //   })
-  //   expect(result.current[0]).toEqual(0)
-  //   expect(result.current[1].seconds).toBe(0)
+  //   expect(result.current[0].value).toEqual(0)
+  //   expect(result.current[1].value.seconds).toBe(0)
 
-  //   act(() => {
+  //   await act(() => {
   //     vi.advanceTimersByTime(1000)
   //   })
 
-  //   expect(result.current[0]).toEqual(0)
-  //   expect(result.current[1].seconds).toBe(0)
+  //   expect(result.current[0].value).toEqual(0)
+  //   expect(result.current[1].value.seconds).toBe(0)
   // })
 
   it('should work automatically', async () => {

@@ -32,7 +32,7 @@ describe('createDeepCompareEffect', () => {
     expect(unref(hook.result.current.x)).toBe(2)
   })
 
-  // it('deps is undefined should rerender in useEffect', () => {
+  // it('deps is undefined should rerender in useEffect', async () => {
   //   const useDeepCompareLayoutEffect = createDeepCompareEffect(useEffect)
   //   let count = 0
   //   const hook = renderHook(() => {
@@ -42,9 +42,9 @@ describe('createDeepCompareEffect', () => {
   //   })
 
   //   expect(count).toBe(1)
-  //   hook.rerender()
+  //   await hook.rerender()
   //   expect(count).toBe(2)
-  //   hook.rerender()
+  //   await hook.rerender()
   //   expect(count).toBe(3)
   // })
 })

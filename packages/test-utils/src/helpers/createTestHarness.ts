@@ -1,4 +1,6 @@
-import { defineComponent, h } from 'vue'
+import type { RenderOptions } from '@testing-library/vue'
+import { render } from '@testing-library/vue'
+import { defineComponent } from 'vue'
 import type { RendererProps } from '../types'
 
 export function createTestHarness<TProps, TResult>(
@@ -10,9 +12,14 @@ export function createTestHarness<TProps, TResult>(
   })
   TestComponent.props = ['hookProps']
 
-  const testHarness = (props?: TProps) => {
+  const testHarness = (props?: TProps, { container }: RenderOptions = {}) => {
     try {
-      return h(TestComponent, { hookProps: props })
+      return render(TestComponent, {
+        props: {
+          hookProps: props,
+        },
+        container,
+      })
     }
     catch (e) {
       setError(e)

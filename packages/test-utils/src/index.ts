@@ -1,5 +1,4 @@
 import type { RenderResult as BaseRenderResult } from '@testing-library/vue'
-import { render } from '@testing-library/vue'
 import { nextTick as act } from 'vue'
 import { createTestHarness } from './helpers/createTestHarness'
 import type { CreateRenderer, RenderHookOptions, RenderResult, Renderer, RendererProps } from './types'
@@ -12,16 +11,13 @@ function createRenderer<TProps, TResult>(rendererProps: RendererProps<TProps, TR
 
   return {
     render: (props?: TProps) => {
-      if (!instance)
-        instance = render(testHarness(props), { container })
+      instance = testHarness(props, { container })
     },
     rerender: (props?: TProps) => {
-      if (instance)
-        instance.rerender((props ?? {}) as any)
+      return instance?.rerender((props ?? {}) as any)
     },
     unmount: () => {
-      if (instance)
-        instance.unmount()
+      instance.unmount()
     },
     act,
   } as Renderer<TProps>
@@ -78,7 +74,7 @@ function createRenderHook<
 
     const rerenderHook = (newProps = hookProps) => {
       hookProps = newProps
-      rerender(hookProps)
+      return rerender(hookProps)
     }
 
     const unmountHook = () => {
