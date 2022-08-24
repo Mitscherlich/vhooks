@@ -4,11 +4,11 @@ import {
   defineComponent,
   inject,
   provide,
-  reactive,
   toRefs,
 } from 'vue-demi'
 import useLatest from '../useLatest'
 import useMemo from '../useMemo'
+import { toReactive } from '../_utils/toReactive'
 
 export type ContextId<T> = InjectionKey<{ value: T }>
 
@@ -25,12 +25,12 @@ export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: ContextId
     _contextValue: defaultValue,
   }
 
-  const Provider = defineComponent<{ value: MaybeRef<T> }>((props, ctx) => {
+  const Provider = defineComponent<{ value?: MaybeRef<T> }>((props, ctx) => {
     const { value } = toRefs(props)
     const contextValue = useMemo(() => ({
       value: value.value ?? defaultValue,
     }), [value])
-    provide(contextId, reactive(contextValue as { value: MaybeRef<T> }))
+    provide(contextId, toReactive(contextValue as { value: MaybeRef<T> }))
 
     return () => ctx.slots.default?.()
   })
