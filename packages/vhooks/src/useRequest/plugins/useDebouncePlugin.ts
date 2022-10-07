@@ -1,7 +1,7 @@
 import type { DebounceSettings, DebouncedFunc } from 'lodash'
 import debounce from 'lodash/debounce'
+import { computed } from 'vue-demi'
 import useEffect from '../../useEffect'
-import useMemo from '../../useMemo'
 import useRef from '../../useRef'
 import type { Plugin } from '../types'
 
@@ -11,7 +11,7 @@ const useDebouncePlugin: Plugin<any, any[]> = (
 ) => {
   const debouncedRef = useRef<DebouncedFunc<any>>()
 
-  const options = useMemo(() => {
+  const options = computed(() => {
     const ret: DebounceSettings = {}
     if (debounceLeading !== undefined)
       ret.leading = debounceLeading
@@ -23,7 +23,7 @@ const useDebouncePlugin: Plugin<any, any[]> = (
       ret.maxWait = debounceMaxWait
 
     return ret
-  }, [debounceLeading, debounceTrailing, debounceMaxWait])
+  })
 
   useEffect(() => {
     if (debounceWait) {

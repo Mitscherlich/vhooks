@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { isNumber } from '@m9ch/vhooks-utils'
+import { computed } from 'vue-demi'
 import useEffect from '../useEffect'
-import useMemo from '../useMemo'
 import useState from '../useState'
 import useLatest from '../useLatest'
 
@@ -44,12 +44,12 @@ const parseMs = (milliseconds: number): FormattedRes => {
 export default function useCountDown(options: Options = {}) {
   const { leftTime, targetDate, interval = 1000, onEnd } = options || {}
 
-  const target = useMemo<TDate>(() => {
+  const target = computed<TDate>(() => {
     if ('leftTime' in options)
       return isNumber(leftTime) && leftTime > 0 ? Date.now() + leftTime : undefined
     else
       return targetDate
-  }, [leftTime, targetDate])
+  })
 
   const [timeLeft, setTimeLeft] = useState(calcLeft(target.value))
 
@@ -77,7 +77,7 @@ export default function useCountDown(options: Options = {}) {
     return () => clearInterval(timer)
   }, [targetDate, interval])
 
-  const formattedRes = useMemo(() => parseMs(timeLeft.value), [timeLeft])
+  const formattedRes = computed(() => parseMs(timeLeft.value))
 
   return [timeLeft, formattedRes] as const
 }

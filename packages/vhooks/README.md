@@ -10,8 +10,6 @@ Missing React-like hooks in Vue Composition API.
 | [useEffect](./src/useEffect/README.md) | Accepts a function that contains imperative, possibly effectful code |
 | [useContext](./src/useContext/README.md) | Accepts a context object returned by `createContext` and returns the current context value |
 | [useReducer](./src/useReducer/README.md) | An alternative to `useState`. Accepts a reducer function |
-| [useCallback](./src/useCallback/README.md) | Returns a `Readonly<Ref>` of memoized callback |
-| [useMemo](./src/useMemo/README.md) | Returns a `Readonly<Ref>` of memoized value |
 | [useRef](./src/useRef/README.md) | An alternative to `ref` |
 | [usePrevious](./src/usePrevious/README.md) | A Hook to return the previous state |
 | [useUpdate](./src/useUpdate/README.md) | Returns a function which can be used to force the component re-render |

@@ -1,4 +1,4 @@
-import useMemo from '../useMemo'
+import { computed } from 'vue-demi'
 import useRequest from '../useRequest'
 
 import type { Data, PaginationOptions, PaginationResult, Params, Service } from './types'
@@ -17,10 +17,10 @@ export default function usePagination<TData extends Data, TParams extends Params
     ...rest,
   })
 
-  const current = useMemo(() => params.value[0].current ?? 1, [params])
-  const pageSize = useMemo(() => params.value[0].pageSize ?? defaultPageSize, [params])
-  const total = useMemo(() => data.value?.total || 0, [data])
-  const totalPage = useMemo(() => Math.ceil(total.value / pageSize.value), [pageSize, total])
+  const current = computed(() => params.value[0].current ?? 1)
+  const pageSize = computed(() => params.value[0].pageSize ?? defaultPageSize)
+  const total = computed(() => data.value?.total || 0)
+  const totalPage = computed(() => Math.ceil(total.value / pageSize.value))
 
   const onChange = (c: number, p: number) => {
     let toCurrent = c <= 0 ? 1 : c

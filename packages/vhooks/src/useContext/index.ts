@@ -1,14 +1,14 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
 import type { DefineComponent, InjectionKey } from 'vue-demi'
 import {
+  computed,
   defineComponent,
   inject,
   provide,
   toRefs,
 } from 'vue-demi'
 import useLatest from '../useLatest'
-import useMemo from '../useMemo'
-import { toReactive } from '../_utils/toReactive'
+import { toReactive } from '../utils/toReactive'
 
 export type ContextId<T> = InjectionKey<{ value: T }>
 
@@ -27,10 +27,10 @@ export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: ContextId
 
   const Provider = defineComponent<{ value?: MaybeRef<T> }>((props, ctx) => {
     const { value } = toRefs(props)
-    const contextValue = useMemo(() => ({
+    const contextValue = computed(() => ({
       value: value.value ?? defaultValue,
-    }), [value])
-    provide(contextId, toReactive(contextValue as { value: MaybeRef<T> }))
+    }))
+    provide(contextId, toReactive(contextValue))
 
     return () => ctx.slots.default?.()
   })

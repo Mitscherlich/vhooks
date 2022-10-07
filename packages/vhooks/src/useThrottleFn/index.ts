@@ -1,7 +1,6 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
 import { onUnmounted } from 'vue-demi'
 import throttle from 'lodash/throttle'
-import useMemo from '../useMemo'
 import useLatest from '../useLatest'
 import type { ThrottleOptions } from './types'
 
@@ -12,32 +11,28 @@ export default function useThrottleFn<T extends noop>(fn: MaybeRef<T>, options?:
 
   const wait = options?.wait ?? 1000
 
-  const throttled = useMemo(
-    () =>
-      throttle(
-        (...args: Parameters<T>): ReturnType<T> => {
-          return fnRef.value(...args as any[])
-        },
-        wait,
-        options,
-      ),
-    [],
+  const throttled = throttle(
+    (...args: Parameters<T>): ReturnType<T> => {
+      return fnRef.value(...args as any[])
+    },
+    wait,
+    options,
   )
 
   onUnmounted(() => {
-    throttled.value.cancel()
+    throttled.cancel()
   })
 
   const run = function (...args: Parameters<T>) {
-    throttled.value.apply(this, args)
+    throttled.apply(this, args)
   }
 
   const cancel = () => {
-    throttled.value.cancel()
+    throttled.cancel()
   }
 
   const flush = () => {
-    throttled.value.flush()
+    throttled.flush()
   }
 
   return { run, cancel, flush }

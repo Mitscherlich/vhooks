@@ -1,5 +1,4 @@
 import useAsyncEffect from './useAsyncEffect'
-import useCallback from './useCallback'
 import useContext from './useContext'
 import useDeepCompareEffect from './useDeepCompareEffect'
 import useDebounceEffect from './useDebounceEffect'
@@ -9,7 +8,6 @@ import useEventEmitter from './useEventEmitter'
 import useExternal from './useExternal'
 import useLatest from './useLatest'
 import useLockFn from './useLockFn'
-import useMemo from './useMemo'
 import usePrevious from './usePrevious'
 import useRafInterval from './useRafInterval'
 import useRafState from './useRafState'
@@ -25,7 +23,6 @@ import useUpdateEffect from './useUpdateEffect'
 
 export {
   useAsyncEffect,
-  useCallback,
   useContext,
   useDeepCompareEffect,
   useDebounceEffect,
@@ -35,7 +32,6 @@ export {
   useExternal,
   useLatest,
   useLockFn,
-  useMemo,
   usePrevious,
   useRafInterval,
   useRafState,
@@ -53,3 +49,5 @@ export {
 export { createContext } from './useContext'
 
 export { clearCache } from './useRequest'
+
+export type { MaybeRef } from '@m9ch/vhooks-types'

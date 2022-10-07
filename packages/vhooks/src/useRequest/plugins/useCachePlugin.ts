@@ -38,7 +38,7 @@ const useCachePlugin: Plugin<any, any[]> = (
   }
 
   if (!cacheKey)
-    return
+    return {}
 
   // get data from cache when init
   const cacheData = _getCache(cacheKey)
@@ -57,9 +57,6 @@ const useCachePlugin: Plugin<any, any[]> = (
   onUnmounted(() => {
     unSubscribeRef.value?.()
   })
-
-  if (!cacheKey)
-    return {}
 
   return {
     onBefore: (params) => {
