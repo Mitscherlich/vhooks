@@ -13,8 +13,7 @@ export default function useRequestImplement<TData, TParams extends any[]>(
   const { manual = false, ...rest } = options
 
   const fetchOptions = {
-    manual,
-    ...rest,
+    manual, ...rest,
   }
 
   const serviceRef = useLatest(service)

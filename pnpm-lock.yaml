@@ -69,6 +69,7 @@ importers:
       rimraf: ^3.0.2
       vite: ^3.0.0
       vitest: ^0.19.1
+      vitest-localstorage-mock: ^0.0.1
       vue: ^3.2.36
       vue-demi: ^0.13.6
     dependencies:
@@ -85,6 +86,7 @@ importers:
       rimraf: 3.0.2
       vite: 3.0.0
       vitest: 0.19.1_jsdom@20.0.0
+      vitest-localstorage-mock: 0.0.1_vitest@0.19.1
       vue: 3.2.36
 
 packages:
@@ -3887,6 +3889,14 @@ packages:
       rollup: 2.77.0
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /vitest-localstorage-mock/0.0.1_vitest@0.19.1:
+    resolution: {integrity: sha512-jt8/URLM+aJWObVPWxDZwt/ZSl/JOKafYuITozDVoFHlgl99jjZ7Wdvsu8ryalFChlgsg1lOBicTQsHXJCpXuw==}
+    peerDependencies:
+      vitest: '*'
+    dependencies:
+      vitest: 0.19.1_jsdom@20.0.0
     dev: true
 
   /vitest/0.19.1:

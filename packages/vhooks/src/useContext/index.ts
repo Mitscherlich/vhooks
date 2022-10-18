@@ -1,5 +1,8 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import type { DefineComponent, InjectionKey } from 'vue-demi'
+import type {
+  DefineComponent,
+  InjectionKey,
+} from 'vue-demi'
 import {
   computed,
   defineComponent,
@@ -19,29 +22,33 @@ export interface Context<T> {
   Consumer: DefineComponent<{}>
 }
 
-export const createContext = <T>(defaultValue: MaybeRef<T>, contextId: ContextId<T> = Symbol.for('@@default')) => {
+export const createContext = <T>(defaultValue: MaybeRef<T>, contextId?: ContextId<T>) => {
   const context: any = {
-    _contextId: contextId,
+    _contextId: contextId ?? Symbol.for('@@default'),
     _contextValue: defaultValue,
   }
 
-  const Provider = defineComponent<{ value?: MaybeRef<T> }>((props, ctx) => {
-    const { value } = toRefs(props)
-    const contextValue = computed(() => ({
-      value: value.value ?? defaultValue,
-    }))
-    provide(contextId, toReactive(contextValue))
-
-    return () => ctx.slots.default?.()
+  const Provider = defineComponent({
+    name: 'Context.Provider',
+    props: ['value'],
+    setup(props, context) {
+      const { value } = toRefs(props)
+      const contextValue = computed(() => ({
+        value: value.value ?? defaultValue,
+      }))
+      provide(contextId, toReactive(contextValue))
+      return () => context.slots.default?.()
+    },
   })
-  Provider.name = 'Context.Provider'
-  Provider.props = ['value']
 
-  const Consumer = defineComponent<{}>((_, ctx) => {
-    const contextValue = inject(contextId)
-    return () => ctx.slots.default?.(contextValue.value)
+  const Consumer = defineComponent({
+    name: 'Context.Consumer',
+    functional: true,
+    render() {
+      const contextValue = inject(contextId)
+      return this.$slots.default?.(contextValue)
+    },
   })
-  Consumer.name = 'Context.Consumer'
 
   context.Provider = Provider
   context.Consumer = Consumer

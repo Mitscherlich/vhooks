@@ -1,4 +1,5 @@
 import type { RenderResult as BaseRenderResult } from '@testing-library/vue'
+import { render } from '@testing-library/vue'
 import { nextTick as act } from 'vue'
 import { createTestHarness } from './helpers/createTestHarness'
 import type { CreateRenderer, RenderHookOptions, RenderResult, Renderer, RendererProps } from './types'
@@ -93,7 +94,7 @@ function createRenderHook<
 
 const renderHook = createRenderHook(createRenderer)
 
-export { renderHook, act }
+export { render, renderHook, act }
 
 export * from './helpers'
 

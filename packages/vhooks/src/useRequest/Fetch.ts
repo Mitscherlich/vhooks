@@ -21,18 +21,18 @@ export default class Fetch<TData, TParams extends any[]> {
     public subscribe: Subscribe,
     public initState: Partial<FetchState<TData, TParams>> = {},
   ) {
-    this.state = {
+    this.state = reactive({
       ...this.state,
       loading: !options.manual,
       ...initState,
-    }
+    }) as FetchState<TData, TParams>
   }
 
   setState(s: Partial<FetchState<TData, TParams>> = {}) {
-    this.state = {
+    this.state = reactive({
       ...this.state,
       ...s,
-    }
+    }) as FetchState<TData, TParams>
     this.subscribe()
   }
 
