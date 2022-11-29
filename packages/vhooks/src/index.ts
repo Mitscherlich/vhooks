@@ -50,4 +50,6 @@ export { createContext } from './useContext'
 
 export { clearCache } from './useRequest'
 
-export type { MaybeRef } from '@m9ch/vhooks-types'
+export type {
+  MaybeRef,
+} from '@m9ch/vhooks-types'

@@ -3,9 +3,6 @@
   "version": "0.1.0-beta.4",
   "description": "Missing React-like hooks of Vue composition API",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -13,6 +10,9 @@
       "import": "./dist/index.mjs"
     }
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
   "files": [
     "dist"
@@ -33,9 +33,12 @@
     }
   },
   "dependencies": {
-    "@m9ch/utils": "^0.2.0",
+    "@m9ch/utils": "^0.3.0",
     "@m9ch/vhooks-types": "workspace:^",
     "@m9ch/vhooks-utils": "workspace:^",
+    "ajv": "^8.11.2",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^2.1.1",
     "dayjs": "^1.11.4",
     "lodash": "^4.17.21",
     "vue-demi": "^0.13.6"
