@@ -38,7 +38,6 @@
     "@m9ch/vhooks-utils": "workspace:^",
     "ajv": "^8.11.2",
     "ajv-errors": "^3.0.0",
-    "ajv-formats": "^2.1.1",
     "dayjs": "^1.11.4",
     "lodash": "^4.17.21",
     "vue-demi": "^0.13.6"
