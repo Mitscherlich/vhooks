@@ -1,8 +1,12 @@
 import { ref } from 'vue-demi'
 import Ajv from 'ajv'
 import ajvErrors from 'ajv-errors'
-import ajvFormat from 'ajv-formats'
-import type { AnyValidateFunction, Options, SchemaType } from './types'
+import type {
+  AjvPlugin,
+  AnyValidateFunction,
+  Options,
+  SchemaType,
+} from './types'
 
 class AjvInstanceManager<T = unknown> {
   static create<T>(opts?: Options) {
@@ -22,19 +26,20 @@ class AjvInstanceManager<T = unknown> {
     this.ajv = new Ajv(opts)
     this.opts = opts
     this.schema = opts.schema
+
+    this.use(ajvErrors)
   }
 
   get signalRef() {
     return this._singal
   }
 
-  _installPlugins() {
-    ajvErrors(this.ajv, this.opts.errors)
-    ajvFormat(this.ajv, this.opts.format)
-  }
-
   _update() {
     this._singal.value += 1
+  }
+
+  use<U = any>(plugin: AjvPlugin<U>, opts?: U) {
+    plugin(this.ajv, opts)
   }
 
   async compile(schema: SchemaType = this.schema) {

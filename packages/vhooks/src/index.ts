@@ -1,3 +1,4 @@
+import useAjv from './useAjv'
 import useAsyncEffect from './useAsyncEffect'
 import useContext from './useContext'
 import useDeepCompareEffect from './useDeepCompareEffect'
@@ -8,6 +9,7 @@ import useEventEmitter from './useEventEmitter'
 import useExternal from './useExternal'
 import useLatest from './useLatest'
 import useLockFn from './useLockFn'
+import useMemo from './useMemo'
 import usePrevious from './usePrevious'
 import useRafInterval from './useRafInterval'
 import useRafState from './useRafState'
@@ -22,6 +24,7 @@ import useUpdate from './useUpdate'
 import useUpdateEffect from './useUpdateEffect'
 
 export {
+  useAjv,
   useAsyncEffect,
   useContext,
   useDeepCompareEffect,
@@ -32,6 +35,7 @@ export {
   useExternal,
   useLatest,
   useLockFn,
+  useMemo,
   usePrevious,
   useRafInterval,
   useRafState,

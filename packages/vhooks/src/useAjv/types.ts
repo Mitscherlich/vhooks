@@ -1,5 +1,6 @@
 import type {
   Options as AjvOptions,
+  Plugin as AjvPlugin,
   AsyncSchema,
   AsyncValidateFunction,
   SchemaObject,
@@ -18,4 +19,9 @@ export type Options = AjvOptions & {
   format?: FormatOptions | FormatName[]
 } & {
   schema?: SchemaType
+}
+
+export {
+  AjvOptions,
+  AjvPlugin,
 }
