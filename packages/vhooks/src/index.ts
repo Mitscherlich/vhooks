@@ -51,6 +51,10 @@ export {
 }
 
 export { createContext } from './useContext'
+export type {
+  Context,
+  ContextId,
+} from './useContext'
 
 export { clearCache } from './useRequest'
 

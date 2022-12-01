@@ -1,65 +1,51 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import type {
-  DefineComponent,
-  InjectionKey,
-} from 'vue-demi'
+import type { SetupContext } from 'vue-demi'
 import {
-  computed,
-  defineComponent,
-  inject,
-  provide,
-  toRefs,
+  computed, defineComponent, inject, unref,
 } from 'vue-demi'
-import useLatest from '../useLatest'
-import { toReactive } from '../utils/toReactive'
 
-export type ContextId<T> = InjectionKey<{ value: T }>
+import type { Context, ContextId } from './types'
 
-export interface Context<T> {
-  _contextId: ContextId<T>
-  _contextValue: MaybeRef<T>
-  Provider: DefineComponent<{ value: MaybeRef<T> }>
-  Consumer: DefineComponent<{}>
-}
+const defaultContextId: ContextId<any> = Symbol.for('defaultContext')
 
-export const createContext = <T>(defaultValue: MaybeRef<T>, contextId?: ContextId<T>) => {
-  const context: any = {
-    _contextId: contextId ?? Symbol.for('@@default'),
+export function createContext<T>(
+  defaultValue: MaybeRef<T>,
+  contextId: ContextId<T> = defaultContextId,
+) {
+  const context = {
+    _contextId: contextId,
     _contextValue: defaultValue,
+
+    Provider: defineComponent({
+      name: 'Context.Provider',
+      provide() {
+        const contextValue = computed(() => {
+          return this.value ?? unref(context._contextValue)
+        })
+        return { [contextId as symbol]: contextValue }
+      },
+      inheritAttrs: false,
+      props: ['value'],
+      render() {
+        return this.$slots.default?.()
+      },
+    }),
+    Consumer: defineComponent({
+      name: 'Context.Consumer',
+      functional: true,
+      inheritAttrs: false,
+      render: (_: any, { slots }: SetupContext) => {
+        const contextValue = inject(contextId, context._contextValue)
+        return slots.default?.(unref(contextValue))
+      },
+    }),
   }
 
-  const Provider = defineComponent({
-    name: 'Context.Provider',
-    props: ['value'],
-    setup(props, context) {
-      const { value } = toRefs(props)
-      const contextValue = computed(() => ({
-        value: value.value ?? defaultValue,
-      }))
-      provide(contextId, toReactive(contextValue))
-      return () => context.slots.default?.()
-    },
-  })
-
-  const Consumer = defineComponent({
-    name: 'Context.Consumer',
-    functional: true,
-    render() {
-      const contextValue = inject(contextId)
-      return this.$slots.default?.(contextValue)
-    },
-  })
-
-  context.Provider = Provider
-  context.Consumer = Consumer
-
-  return context as Context<T>
+  return context
 }
 
-function useContext<T>(context: Context<T>) {
-  const contextValue = inject(context._contextId)
-  const { value } = toRefs(contextValue)
-  return useLatest(value)
+export default function useContext<T>(context: Context<T>) {
+  return inject(context._contextId)
 }
 
-export default useContext
+export type { Context, ContextId } from './types'
