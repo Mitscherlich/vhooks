@@ -1,5 +1,6 @@
 import useAjv from './useAjv'
 import useAsyncEffect from './useAsyncEffect'
+import useCallback from './useCallback'
 import useContext from './useContext'
 import useDeepCompareEffect from './useDeepCompareEffect'
 import useDebounceEffect from './useDebounceEffect'
@@ -10,6 +11,7 @@ import useExternal from './useExternal'
 import useLatest from './useLatest'
 import useLockFn from './useLockFn'
 import useMemo from './useMemo'
+import usePagination from './usePagination'
 import usePrevious from './usePrevious'
 import useRafInterval from './useRafInterval'
 import useRafState from './useRafState'
@@ -26,6 +28,7 @@ import useUpdateEffect from './useUpdateEffect'
 export {
   useAjv,
   useAsyncEffect,
+  useCallback,
   useContext,
   useDeepCompareEffect,
   useDebounceEffect,
@@ -36,6 +39,7 @@ export {
   useLatest,
   useLockFn,
   useMemo,
+  usePagination,
   usePrevious,
   useRafInterval,
   useRafState,
