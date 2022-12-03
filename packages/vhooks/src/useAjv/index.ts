@@ -1,4 +1,4 @@
-import type { Options, Plugin } from './types'
+import type { Options, Plugin, Result } from './types'
 import { useAjvImplement } from './useAjv'
 import { useAjvError } from './plugins/useError'
 import { useAjvFormat } from './plugins/useFormat'
@@ -12,5 +12,5 @@ export default function useAjv<TData, TSchema = any>(
     ...(plugins || []),
     useAjvError(),
     useAjvFormat(),
-  ])
+  ]) as Result<TData, TSchema>
 }

@@ -1,7 +1,7 @@
 import { readonly, toRefs } from 'vue-demi'
 import useUpdate from '../useUpdate'
 import AjvInstance from './Ajv'
-import type { Options, Plugin, SchemaObject } from './types'
+import type { Options, Plugin, Result, SchemaObject } from './types'
 
 export function useAjvImplement<TData, TSchema>(
   schema: SchemaObject,
@@ -28,5 +28,5 @@ export function useAjvImplement<TData, TSchema>(
     compile: ajvInstance.compile.bind(ajvInstance),
     compileAsync: ajvInstance.compileAsync.bind(ajvInstance),
     run: ajvInstance.run.bind(ajvInstance),
-  }
+  } as unknown as Result<TData, TSchema>
 }

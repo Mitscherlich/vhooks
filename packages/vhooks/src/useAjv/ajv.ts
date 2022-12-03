@@ -1,6 +1,7 @@
 import {
   EventEmitter,
 } from '@m9ch/vhooks-utils'
+import type { ErrorObject } from 'ajv'
 import Ajv from 'ajv'
 import { reactive } from 'vue-demi'
 import type {
@@ -23,7 +24,7 @@ export default class AjvInstance<TData, TSchema> extends EventEmitter {
   state = reactive<State<TData>>({
     status: Status.Idle,
     data: null,
-    errors: [],
+    errors: [] as ErrorObject[],
   })
 
   constructor(
