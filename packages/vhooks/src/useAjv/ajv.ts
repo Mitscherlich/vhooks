@@ -1,68 +1,96 @@
-import { ref } from 'vue-demi'
+import {
+  EventEmitter,
+} from '@m9ch/vhooks-utils'
 import Ajv from 'ajv'
-import ajvErrors from 'ajv-errors'
+import { reactive } from 'vue-demi'
 import type {
-  AjvPlugin,
-  AnyValidateFunction,
   Options,
-  SchemaType,
+  Plugin,
+  SchemaObject,
+  State,
+  Subscribe,
+  ValidateFunction,
 } from './types'
+import { Status } from './constants'
 
-class AjvInstanceManager<T = unknown> {
-  static create<T>(opts?: Options) {
-    return new AjvInstanceManager<T>(opts)
+export default class AjvInstance<TData, TSchema> extends EventEmitter {
+  ajvInstance: Ajv
+
+  pluginImpls: Plugin[]
+
+  compiled: ValidateFunction<TSchema>
+
+  state = reactive<State<TData>>({
+    status: Status.Idle,
+    data: null,
+    errors: [],
+  })
+
+  constructor(
+    public _schema: SchemaObject,
+    public options: Options,
+    public subscribe: Subscribe,
+  ) {
+    super()
+    this.ajvInstance = new Ajv({
+      allErrors: true,
+      ...options,
+    })
+    if (this.schema)
+      this.compile()
   }
 
-  ajv: Ajv
-  opts: Options
-
-  schema?: SchemaType
-
-  compiled?: AnyValidateFunction<T>
-
-  _singal = ref(0)
-
-  constructor(opts?: Options) {
-    this.ajv = new Ajv(opts)
-    this.opts = opts
-    this.schema = opts.schema
-
-    this.use(ajvErrors)
+  setState(s: Partial<State<TData>> = {}) {
+    Object.assign(this.state, s)
+    this.subscribe()
   }
 
-  get signalRef() {
-    return this._singal
+  use<T = unknown>(plugin: Plugin<T>, opts?: T) {
+    plugin.install(this.ajvInstance, opts)
+    plugin.options = opts
+
+    this.pluginImpls.push(plugin)
   }
 
-  _update() {
-    this._singal.value += 1
+  runPluginHandler(event: string, ...args: any[]) {
+    this.pluginImpls.forEach((plugin) => {
+      plugin[event]?.(...args)
+    })
   }
 
-  use<U = any>(plugin: AjvPlugin<U>, opts?: U) {
-    plugin(this.ajv, opts)
+  get schema() {
+    return this._schema
   }
 
-  async compile(schema: SchemaType = this.schema) {
-    this.compiled = await this.ajv.compileAsync<T>(schema)
-
-    return this.compiled
+  set schema(s: object) {
+    this._schema = s
+    this.compile()
   }
 
-  async run(data: T, dataCtx?: any) {
-    let fn = this.compiled
+  async compileAsync() {
+    this.compiled = await this.ajvInstance.compileAsync<TSchema>(this.schema)
+  }
 
-    if (!fn)
-      fn = await this.compile()
+  compile() {
+    this.compileAsync().catch((error) => {
+      this.emit('schema:compile:error', error)
+      this.runPluginHandler('onSchemaCompileError', error, this.schema)
+    })
+  }
 
-    try {
-      return await fn(data, dataCtx)
+  run(data: TData) {
+    this.setState({ data })
+    const result = this.compiled(data)
+    if (!result) {
+      this.setState({
+        status: Status.Rejected,
+        errors: this.compiled.errors,
+      })
     }
-    finally {
-      this._update()
+    else {
+      this.setState({
+        status: Status.Resolved,
+      })
     }
   }
-}
-
-export const getAjvInstance = <T = unknown>(opts?: Options) => {
-  return AjvInstanceManager.create<T>(opts)
 }

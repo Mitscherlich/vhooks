@@ -1,24 +1,16 @@
-import { isReactive, toRefs } from 'vue-demi'
-import useEffect from '../useEffect'
-import useMemo from '../useMemo'
-import { getAjvInstance } from './ajv'
+import type { Options, Plugin } from './types'
+import { useAjvImplement } from './useAjv'
+import { useAjvError } from './plugins/useError'
+import { useAjvFormat } from './plugins/useFormat'
 
-import type { Options, SchemaType } from './types'
-
-export default function useAjv<T = unknown>(schema: SchemaType, opts?: Options) {
-  const ajv = getAjvInstance<T>(opts)
-
-  useEffect(() => {
-    ajv.compile(schema)
-  }, [...Object.values(isReactive(schema) ? toRefs(schema) : schema)])
-
-  const validate = async (data: T, dataCtx?: any) => {
-    return await ajv.run(data, dataCtx)
-  }
-
-  const errors = useMemo(() => {
-    return ajv.compiled?.errors
-  }, [ajv.signalRef])
-
-  return { validate, errors }
+export default function useAjv<TData, TSchema = any>(
+  schema: TSchema,
+  options?: Options,
+  plugins?: Plugin[],
+) {
+  return useAjvImplement<TData, TSchema>(schema, options, [
+    ...(plugins || []),
+    useAjvError(),
+    useAjvFormat(),
+  ])
 }

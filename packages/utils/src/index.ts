@@ -7,4 +7,5 @@ export const isBoolean = (val: unknown): val is boolean => typeof val === 'boole
 export const isNumber = (val: unknown): val is number => typeof val === 'number'
 export const isUndef = (val: unknown): val is undefined => typeof val === 'undefined'
 
-export { isBrowser } from './isBrowser'
+export * from './event'
+export * from './isBrowser'
