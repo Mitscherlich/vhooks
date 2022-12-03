@@ -1,4 +1,5 @@
-import { computed } from 'vue-demi'
+import { computed, reactive, unref } from 'vue-demi'
+import useMemo from '../useMemo'
 import useRequest from '../useRequest'
 
 import type { Data, PaginationOptions, PaginationResult, Params, Service } from './types'
@@ -7,29 +8,37 @@ export default function usePagination<TData extends Data, TParams extends Params
   service: Service<TData, TParams>,
   options: PaginationOptions<TData, TParams> = {},
 ) {
-  const { defaultPageSize = 10, ...rest } = options
+  const { defaultPageSize = 10, defaultCurrent = 1, ...rest } = options
 
-  const { data, params, ...result } = useRequest(service, {
-    defaultParams: [{ current: 1, pageSize: defaultPageSize }],
+  const result = useRequest(service, {
+    defaultParams: [{ current: defaultCurrent, pageSize: defaultPageSize }],
     refreshDepsAction: () => {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       changeCurrent(1)
     },
     ...rest,
   })
 
-  const current = computed(() => params.value[0].current ?? 1)
-  const pageSize = computed(() => params.value[0].pageSize ?? defaultPageSize)
-  const total = computed(() => data.value?.total || 0)
-  const totalPage = computed(() => Math.ceil(total.value / pageSize.value))
+  const current = computed(() => {
+    const { current = 1 } = unref(result.params)[0] || {}
+    return current
+  })
+  const pageSize = computed(() => {
+    const { pageSize = defaultPageSize } = unref(result.params)[0] || {}
+    return pageSize
+  })
+
+  const total = computed(() => unref(result.data)?.total || 0)
+  const totalPage = useMemo(() => Math.ceil(unref(total) / unref(pageSize)), [pageSize, total])
 
   const onChange = (c: number, p: number) => {
     let toCurrent = c <= 0 ? 1 : c
     const toPageSize = p <= 0 ? 1 : p
-    const tempTotalPage = Math.ceil(total.value / toPageSize)
+    const tempTotalPage = Math.ceil(unref(total) / toPageSize)
     if (toCurrent > tempTotalPage)
       toCurrent = Math.max(1, tempTotalPage)
 
-    const [oldPaginationParams = {}, ...restParams] = params.value || []
+    const [oldPaginationParams = {}, ...restParams] = unref(result.params) || []
 
     result.run(
       {
@@ -42,18 +51,16 @@ export default function usePagination<TData extends Data, TParams extends Params
   }
 
   const changeCurrent = (c: number) => {
-    onChange(c, pageSize.value)
+    onChange(c, unref(pageSize))
   }
 
   const changePageSize = (p: number) => {
-    onChange(current.value, p)
+    onChange(unref(current), p)
   }
 
   return {
-    data,
-    params,
     ...result,
-    pagination: {
+    pagination: reactive({
       current,
       pageSize,
       total,
@@ -61,6 +68,6 @@ export default function usePagination<TData extends Data, TParams extends Params
       onChange,
       changeCurrent,
       changePageSize,
-    },
+    }),
   } as PaginationResult<TData, TParams>
 }
