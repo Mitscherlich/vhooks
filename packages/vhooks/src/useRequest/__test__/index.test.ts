@@ -1,3 +1,5 @@
+import { describe, test } from 'vitest'
+
 describe('useRequest', () => {
-  it.todo('unimplemented test')
+  test.todo('unimplemented')
 })

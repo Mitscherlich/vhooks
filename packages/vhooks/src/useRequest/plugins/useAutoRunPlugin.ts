@@ -25,7 +25,6 @@ const useAutoRunPlugin: Plugin<any, any[]> = (
       hasAutoRun.value = true
       if (refreshDepsAction)
         refreshDepsAction()
-
       else
         fetchInstance.refresh()
     }

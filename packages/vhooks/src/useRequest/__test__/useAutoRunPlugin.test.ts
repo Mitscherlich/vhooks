@@ -1,3 +1,5 @@
+import { describe, test } from 'vitest'
+
 describe('useAutoRunPlugin', () => {
-  it.todo('unimplemented')
+  test.todo('unimplemented')
 })

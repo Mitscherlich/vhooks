@@ -1,5 +1,5 @@
 import type { DependencyList } from '@m9ch/vhooks-types'
-import type { DeepReadonly, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { CachedData } from './utils/cache'
 import type Fetch from './Fetch'
 
@@ -110,10 +110,10 @@ export interface Plugin<TData, TParams extends any[]> {
 // };
 
 export interface Result<TData, TParams extends any[]> {
-  loading: DeepReadonly<Ref<boolean>>
-  data?: DeepReadonly<Ref<TData>>
-  error?: DeepReadonly<Ref<Error>>
-  params: DeepReadonly<Ref<TParams | []>>
+  loading: Readonly<Ref<boolean>>
+  data?: Readonly<Ref<TData>>
+  error?: Readonly<Ref<Error>>
+  params: Readonly<Ref<TParams | []>>
   cancel: Fetch<TData, TParams>['cancel']
   refresh: Fetch<TData, TParams>['refresh']
   refreshAsync: Fetch<TData, TParams>['refreshAsync']

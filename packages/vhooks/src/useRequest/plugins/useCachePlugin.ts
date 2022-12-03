@@ -23,7 +23,6 @@ const useCachePlugin: Plugin<any, any[]> = (
   const _setCache = (key: string, cachedData: CachedData) => {
     if (customSetCache)
       customSetCache(cachedData)
-
     else
       cache.setCache(key, cacheTime, cachedData)
 
@@ -31,28 +30,27 @@ const useCachePlugin: Plugin<any, any[]> = (
   }
 
   const _getCache = (key: string, params: any[] = []) => {
-    if (customGetCache)
-      return customGetCache(params)
-
-    return cache.getCache(key)
+    return customGetCache ? customGetCache(params) : cache.getCache(key)
   }
 
-  if (!cacheKey)
-    return {}
+  (() => {
+    if (!cacheKey)
+      return {}
 
-  // get data from cache when init
-  const cacheData = _getCache(cacheKey)
-  if (cacheData && Object.hasOwnProperty.call(cacheData, 'data')) {
-    fetchInstance.state.data = cacheData.data
-    fetchInstance.state.params = cacheData.params
-    if (staleTime === -1 || new Date().getTime() - cacheData.time <= staleTime)
-      fetchInstance.state.loading = false
-  }
+    // get data from cache when init
+    const cacheData = _getCache(cacheKey)
+    if (cacheData && Object.hasOwnProperty.call(cacheData, 'data')) {
+      fetchInstance.state.data = cacheData.data
+      fetchInstance.state.params = cacheData.params
+      if (staleTime === -1 || new Date().getTime() - cacheData.time <= staleTime)
+        fetchInstance.state.loading = false
+    }
 
-  // subscribe same cachekey update, trigger update
-  unSubscribeRef.value = cacheSubscribe.subscribe(cacheKey, (data) => {
-    fetchInstance.setState({ data })
-  })
+    // subscribe same cachekey update, trigger update
+    unSubscribeRef.value = cacheSubscribe.subscribe(cacheKey, (data) => {
+      fetchInstance.setState({ data })
+    })
+  })()
 
   onUnmounted(() => {
     unSubscribeRef.value?.()

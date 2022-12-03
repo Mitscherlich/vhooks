@@ -1,5 +1,4 @@
 import { isFunction } from '@m9ch/vhooks-utils'
-import type { Ref } from 'vue-demi'
 import { reactive } from 'vue-demi'
 import type { FetchState, Options, PluginReturn, Service, Subscribe } from './types'
 
@@ -16,28 +15,36 @@ export default class Fetch<TData, TParams extends any[]> {
   })
 
   constructor(
-    public serviceRef: Ref<Service<TData, TParams>>,
+    public service: Service<TData, TParams>,
     public options: Options<TData, TParams>,
     public subscribe: Subscribe,
     public initState: Partial<FetchState<TData, TParams>> = {},
   ) {
-    this.state = reactive({
+    this._SET_STATE({
       ...this.state,
       loading: !options.manual,
       ...initState,
-    }) as FetchState<TData, TParams>
+    })
+  }
+
+  _SET_STATE(updator: ((s: Partial<FetchState<TData, TParams>>) => Partial<FetchState<TData, TParams>>) | Partial<FetchState<TData, TParams>>) {
+    Object.assign(this.state, typeof updator === 'function'
+      ? updator(this.state)
+      : updator,
+    )
   }
 
   setState(s: Partial<FetchState<TData, TParams>> = {}) {
-    this.state = reactive({
+    this._SET_STATE({
       ...this.state,
       ...s,
-    }) as FetchState<TData, TParams>
+    })
     this.subscribe()
   }
 
   runPluginHandler(event: keyof PluginReturn<TData, TParams>, ...rest: any[]) {
-    const r = this.pluginImpls.map(i => i[event]?.apply(null, rest)).filter(Boolean)
+    // @ts-ignore
+    const r = this.pluginImpls.map(i => i[event]?.(...rest)).filter(Boolean)
     return Object.assign({}, ...r)
   }
 
@@ -69,10 +76,10 @@ export default class Fetch<TData, TParams extends any[]> {
 
     try {
       // replace service
-      let { servicePromise } = this.runPluginHandler('onRequest', this.serviceRef.value, params)
+      let { servicePromise } = this.runPluginHandler('onRequest', this.service, params)
 
       if (!servicePromise)
-        servicePromise = this.serviceRef.value(...params)
+        servicePromise = this.service(...params)
 
       const res = await servicePromise
 
@@ -81,7 +88,7 @@ export default class Fetch<TData, TParams extends any[]> {
         return new Promise(() => {})
       }
 
-      // const formattedResult = this.options.formatResultRef.current ? this.options.formatResultRef.current(res) : res;
+      // const formattedResult = this.options.formatResult ? this.options.formatResultRef.current(res) : res;
 
       this.setState({
         data: res,
@@ -139,22 +146,18 @@ export default class Fetch<TData, TParams extends any[]> {
   }
 
   refresh() {
-    this.run(...(this.state.params || []) as TParams)
+    // @ts-ignore
+    this.run(...(this.state.params || []))
   }
 
   refreshAsync() {
-    return this.runAsync(...(this.state.params || []) as TParams)
+    // @ts-ignore
+    return this.runAsync(...(this.state.params || []))
   }
 
   mutate(data?: TData | ((oldData?: TData) => TData | undefined)) {
-    let targetData: TData | undefined
-    if (isFunction(data))
-      targetData = data(this.state.data)
-    else
-      targetData = data
-
+    const targetData = isFunction(data) ? data(this.state.data) : data
     this.runPluginHandler('onMutate', targetData)
-
     this.setState({
       data: targetData,
     })
