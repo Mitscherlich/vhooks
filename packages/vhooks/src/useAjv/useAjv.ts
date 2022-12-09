@@ -1,6 +1,6 @@
 import { readonly, toRefs } from 'vue-demi'
 import useUpdate from '../useUpdate'
-import AjvInstance from './Ajv'
+import AjvInstance from './ajv'
 import type { Options, Plugin, Result, SchemaObject } from './types'
 
 export function useAjvImplement<TData, TSchema>(
