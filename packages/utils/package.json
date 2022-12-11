@@ -1,19 +1,25 @@
 {
   "name": "@m9ch/vhooks-utils",
   "version": "0.1.0-beta.10",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup ./src/index.ts",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@m9ch/utils": "^0.2.0"
   },
   "devDependencies": {
     "@m9ch/vhooks-test-utils": "workspace:^",
@@ -29,8 +35,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@m9ch/utils": "^0.2.0"
   }
 }
