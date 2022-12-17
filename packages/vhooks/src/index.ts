@@ -1,4 +1,3 @@
-import useAjv from './useAjv'
 import useAsyncEffect from './useAsyncEffect'
 import useCallback from './useCallback'
 import useContext from './useContext'
@@ -26,7 +25,6 @@ import useUpdate from './useUpdate'
 import useUpdateEffect from './useUpdateEffect'
 
 export {
-  useAjv,
   useAsyncEffect,
   useCallback,
   useContext,
