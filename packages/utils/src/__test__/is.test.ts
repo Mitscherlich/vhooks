@@ -1,6 +1,6 @@
-import { isBoolean, isFunction, isNumber, isObject, isUndef } from '../index'
+import { isBoolean, isFunction, isNumber, isObject } from '../index'
 
-describe('shared utils methods', () => {
+describe('is', () => {
   test('isBoolean', () => {
     expect(isBoolean(true)).toBe(true)
     expect(isBoolean(false)).toBe(true)
@@ -36,14 +36,5 @@ describe('shared utils methods', () => {
     expect(isObject(null)).toBe(false)
     expect(isObject(() => {})).toBe(false)
     expect(isObject(123)).toBe(false)
-  })
-
-  test('isUndef', () => {
-    expect(isUndef(undefined)).toBe(true)
-
-    expect(isUndef(0)).toBe(false)
-    expect(isUndef(null)).toBe(false)
-    expect(isUndef(NaN)).toBe(false)
-    expect(isUndef('')).toBe(false)
   })
 })
