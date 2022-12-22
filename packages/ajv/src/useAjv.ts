@@ -1,5 +1,5 @@
 import { readonly, toRefs } from 'vue-demi'
-import useUpdate from '../useUpdate'
+import { useUpdate } from '@m9ch/vhooks'
 import AjvInstance from './ajv'
 import type { Options, Plugin, Result, SchemaObject } from './types'
 
