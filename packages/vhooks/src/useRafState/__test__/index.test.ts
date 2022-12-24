@@ -1,4 +1,5 @@
 import { act, renderHook } from '@m9ch/vhooks-test-utils'
+import { describe, expect, it } from 'vitest'
 import useRafState from '../index'
 
 describe('useRafState', () => {

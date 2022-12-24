@@ -1,4 +1,5 @@
 import { act, fireEvent, renderHook } from '@m9ch/vhooks-test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Options } from '../index'
 import useExternal from '../index'
 

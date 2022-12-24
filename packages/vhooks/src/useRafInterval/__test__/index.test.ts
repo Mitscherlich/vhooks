@@ -1,4 +1,5 @@
 import { renderHook } from '@m9ch/vhooks-test-utils'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import useRafInterval from '../index'
 
 interface ParamsObj {

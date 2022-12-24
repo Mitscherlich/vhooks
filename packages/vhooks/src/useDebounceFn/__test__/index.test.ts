@@ -1,4 +1,5 @@
 import type { RenderHookResult } from '@m9ch/vhooks-test-utils'
+import { describe, expect, it } from 'vitest'
 import { act, renderHook, sleep } from '@m9ch/vhooks-test-utils'
 import useDebounceFn from '../index'
 

@@ -1,4 +1,5 @@
 import { renderHook } from '@m9ch/vhooks-test-utils'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import useRafTimeout from '../index'
 
 interface ParamsObj {
@@ -22,7 +23,9 @@ describe('useRafTimeout', () => {
     const _cancelAnimationFrame = global.cancelAnimationFrame
 
     // simulate nodejs environment
+    // @ts-ignore
     delete global.requestAnimationFrame
+    // @ts-ignore
     delete global.cancelAnimationFrame
 
     const callback = vi.fn()

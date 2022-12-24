@@ -1,4 +1,5 @@
 import { act, renderHook } from '@m9ch/vhooks-test-utils'
+import { describe, expect, it } from 'vitest'
 import { createUpdateEffect } from '../index'
 import useEffect from '../../useEffect'
 import useState from '../../useState'

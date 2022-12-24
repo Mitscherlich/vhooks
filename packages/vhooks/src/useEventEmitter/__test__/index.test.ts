@@ -1,4 +1,5 @@
 import { act, renderHook } from '@m9ch/vhooks-test-utils'
+import { describe, expect, it } from 'vitest'
 import useState from '../../useState'
 import useEventEmitter from '../index'
 
