@@ -18,12 +18,24 @@
     "build": "tsup ./src/index.ts",
     "test": "vitest run"
   },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
   "dependencies": {
-    "@m9ch/utils": "^0.2.0"
+    "@m9ch/utils": "^0.2.0",
+    "@m9ch/vhooks-types": "workspace:^",
+    "vue-demi": "^0.13.6"
   },
   "devDependencies": {
     "@m9ch/vhooks-test-utils": "workspace:^",
-    "vitest": "^0.19.1"
+    "vitest": "^0.19.1",
+    "vue": "^3.2.36"
   },
   "tsup": {
     "format": [

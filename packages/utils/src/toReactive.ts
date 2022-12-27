@@ -1,7 +1,7 @@
-// manually forked from: [vueuse/vueuse](https://github.com/vueuse/vueuse)
-// @see {https://github.com/vueuse/vueuse/blob/1eb83c41bb1ca6e6c8ee61c46ce9dbca7ab1613f/packages/shared/toReactive/index.ts}
+import type {
+  MaybeRef,
+} from '@m9ch/vhooks-types'
 import { isRef, reactive, unref } from 'vue-demi'
-import type { MaybeRef } from '@m9ch/vhooks-types'
 
 /**
  * Converts ref to reactive.
@@ -12,7 +12,7 @@ import type { MaybeRef } from '@m9ch/vhooks-types'
 export function toReactive<T extends object>(
   objectRef: MaybeRef<T>,
 ): T {
-  if (!isRef(objectRef))
+  if (!isRef<T>(objectRef))
     return reactive(objectRef) as T
 
   const proxy = new Proxy({}, {

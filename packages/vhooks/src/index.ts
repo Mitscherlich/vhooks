@@ -62,4 +62,9 @@ export { clearCache } from './useRequest'
 
 export type {
   MaybeRef,
+  MutableRef,
 } from '@m9ch/vhooks-types'
+
+export {
+  toReactive,
+} from '@m9ch/vhooks-utils'

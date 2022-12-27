@@ -31,5 +31,8 @@ export type ReturnValue<S, A> = [
 export type Destructor = () => void
 export type EffectCallback = () => void | Destructor
 
-export type mixed = any
-export type DependencyList = Array<mixed> | void | null
+export type DependencyList = ReadonlyArray<unknown>
+
+export type MutableRef<T> = Ref<T> & {
+  current?: T
+}
