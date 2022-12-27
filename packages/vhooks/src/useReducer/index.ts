@@ -1,24 +1,35 @@
 import type {
-  DeepReadonly,
+  Action,
   Dispatch,
+  MaybeRef,
   Reducer,
   ReturnValue,
 } from '@m9ch/vhooks-types'
-import type { Ref, UnwrapRef } from 'vue-demi'
-import { readonly, ref, unref } from 'vue-demi'
+import type { Ref } from 'vue-demi'
+import { readonly, unref } from 'vue-demi'
+import useRef from '../useRef'
 
-export default function useReducer<S, A>(
+function useReducer<S, A extends Action<S>>(
   reducer: Reducer<S, A>,
-  initialArg: S,
-  init?: A,
-): ReturnValue<Ref<S>, A> {
-  const state = ref<S>(initialArg)
-  const dispatch: Dispatch<A> = (action) => {
-    state.value = reducer(unref(state) as S, action) as UnwrapRef<S>
+  initialState: MaybeRef<S>,
+): ReturnValue<S, A>
+function useReducer<S, A extends Action<S>, I>(
+  reducer: Reducer<S, A>,
+  initialArgs: I,
+  init: (arg: I) => S,
+): ReturnValue<S, A>
+function useReducer<S, A extends Action<S>, I = any>(
+  reducer: Reducer<S, A>,
+  initial: MaybeRef<S> | I,
+  init?: (arg: I) => S,
+): ReturnValue<S, A> {
+  const state = useRef(
+    !init ? unref(initial) as S : init(initial as I),
+  )
+  const dispatch: Dispatch<S, A> = (action) => {
+    state.current = reducer(unref(state), action)
   }
-
-  if (init != null)
-    dispatch(init)
-
-  return [readonly(state) as DeepReadonly<Ref<S>>, dispatch]
+  return [readonly(state) as Readonly<Ref<S>>, dispatch]
 }
+
+export default useReducer

@@ -17,15 +17,15 @@ export type DeepReadonly<T> = {
     : DeepReadonly<T[P]>;
 }
 
-export type Action<S> = (state: S) => S
-export type Dispatch<A> = (action: A) => void
-export type Reducer<S, A> = (
+export type Action<S> = ((state: S) => S) | S
+export type Dispatch<S, A extends Action<S>> = (action: A) => void
+export type Reducer<S, A extends Action<S>> = (
   state: S,
   action: A,
 ) => S
-export type ReturnValue<S, A> = [
-  DeepReadonly<S>,
-  Dispatch<A>,
+export type ReturnValue<S, A extends Action<S>> = [
+  Readonly<Ref<S>>,
+  Dispatch<S, A>,
 ]
 
 export type Destructor = () => void
