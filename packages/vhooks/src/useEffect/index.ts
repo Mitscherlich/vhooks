@@ -2,15 +2,20 @@ import type {
   DependencyList,
   EffectCallback,
 } from '@m9ch/vhooks-types'
-import { toArray } from '@m9ch/utils'
 import {
-  getCurrentScope,
+  isArray,
+  isMap,
+  isObject,
+  isPlainObject,
+  isSet,
+} from '@m9ch/vhooks-utils'
+import {
+  effect,
+  getCurrentInstance,
   isReactive,
   isRef,
-  onScopeDispose,
+  onUpdated,
   queuePostFlushCb,
-  shallowRef,
-  watch,
 } from 'vue-demi'
 import type { Cleanup, Effect } from './types'
 
@@ -24,7 +29,6 @@ export default function useEffect(fn: EffectCallback, deps?: DependencyList) {
       invokeCleanup.current = null
     }
   }
-
   const invokeEffect: Effect = () => {
     const { current } = invokeEffect
     if (current) {
@@ -32,39 +36,73 @@ export default function useEffect(fn: EffectCallback, deps?: DependencyList) {
       invokeEffect.current = fn
     }
   }
-
   invokeEffect.current = fn
 
-  let source: DependencyList
-  if (!deps)
-    source = []
-  else if (deps.some(dep => !isRef(dep) && !isReactive(dep)))
-    source = toArray(deps).map(dep => !isRef(dep) && !isReactive(dep) ? shallowRef(dep) : dep)
-  else
-    source = toArray(deps)
-
-  const stopWatch = watch(source, (newArgs, oldArgs) => {
-    if (argsChanged(oldArgs, newArgs)) {
-      invokeCleanup()
-      invokeEffect()
-    }
-  }, { flush: 'post', deep: true })
-
-  queuePostRenderEffect(invokeEffect)
-
-  const stop = () => {
-    stopWatch()
+  const job = () => {
     invokeCleanup()
+    invokeEffect()
   }
+  const visitor = (dep: any) => {
+    if (Array.isArray(dep))
+      return dep.map(visitor)
+    if (isReactive(dep))
+      return traverse(dep)
+    if (isRef(dep))
+      return dep.value
+    return dep
+  }
+  effect(() => visitor(deps), {
+    scheduler: job,
+    onStop: invokeCleanup,
+  })
+  mountEffect()
+  updateEffect()
 
-  if (getCurrentScope())
-    onScopeDispose(stop)
+  function mountEffect() {
+    queuePostRenderEffect(job)
+  }
+  function updateEffect() {
+    if (!deps && getCurrentInstance()) {
+      // make sure there is a vm instance
+      onUpdated(() => {
+        queuePostFlushCb(job)
+      })
+    }
+  }
 }
 
-function argsChanged(oldArgs: any[], newArgs: any[]) {
-  return (
-    !oldArgs
-    || oldArgs.length !== newArgs.length
-    || oldArgs.some((arg, index) => arg !== newArgs[index])
-  )
+export enum ReactiveFlags {
+  SKIP = '__v_skip',
+  IS_REACTIVE = '__v_isReactive',
+  IS_READONLY = '__v_isReadonly',
+  IS_SHALLOW = '__v_isShallow',
+  RAW = '__v_raw',
+}
+
+export function traverse(value: unknown, seen?: Set<unknown>) {
+  if (!isObject(value) || (value as any)[ReactiveFlags.SKIP])
+    return value
+
+  seen = seen || new Set()
+  if (seen.has(value))
+    return value
+
+  seen.add(value)
+  if (isRef(value)) {
+    traverse(value.value, seen)
+  }
+  else if (isArray(value)) {
+    for (let i = 0; i < value.length; i++)
+      traverse(value[i], seen)
+  }
+  else if (isSet(value) || isMap(value)) {
+    value.forEach((v: any) => {
+      traverse(v, seen)
+    })
+  }
+  else if (isPlainObject(value)) {
+    for (const key in value)
+      traverse((value as any)[key], seen)
+  }
+  return value
 }
