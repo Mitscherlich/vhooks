@@ -1,8 +1,10 @@
 import { customRef, unref } from 'vue-demi'
-import type { Ref } from 'vue-demi'
-import type { MaybeRef } from '@m9ch/vhooks-types'
+import type {
+  MaybeRef,
+  MutableRef,
+} from '@m9ch/vhooks-types'
 
-export default function useRef<T>(initValue?: MaybeRef<T>): Ref<T> & { current: T | undefined } {
+export default function useRef<T>(initValue?: MaybeRef<T>): MutableRef<T> {
   // auto unwrap ref
   let current: T | undefined = initValue ? unref(initValue) : undefined
 
@@ -29,5 +31,5 @@ export default function useRef<T>(initValue?: MaybeRef<T>): Ref<T> & { current: 
     set: setter,
   })
 
-  return ref as Ref<T> & { current: T | undefined }
+  return ref as MutableRef<T>
 }
