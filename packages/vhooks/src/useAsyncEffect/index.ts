@@ -1,5 +1,5 @@
 import type { DependencyList } from '@m9ch/vhooks-types'
-import { isFunction } from '@m9ch/vhooks-utils'
+import { isFunction } from 'lodash'
 import useEffect from '../useEffect'
 
 export default function useAsyncEffect(

@@ -1,5 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
-// import { reactive } from 'vue-demi'
+// import { reactive } from 'vue'
 import { act } from '@m9ch/vhooks-test-utils'
 import useEffect from '../index'
 

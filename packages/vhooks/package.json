@@ -3,64 +3,40 @@
   "version": "0.1.0-beta.10",
   "description": "Missing React-like hooks of Vue composition API",
   "license": "MIT",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    }
+  "author": "Mitscherlich Wei <mitscherlich36@gmail.com>",
+  "homepage": "https://github.com/Mitscherlich/vhooks/tree/dev/packages/vhooks#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mitscherlich/vhooks.git",
+    "directory": "packages/vhooks"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "source": "./src/index.ts",
+  "bugs": "https://github.com/Mitscherlich/vhooks/issues",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup ./src/index.ts",
-    "lint": "eslint .",
-    "test": "vitest run",
-    "prepublishOnly": "rimraf ./dist && pnpm build"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "test": "vitest run"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.0.0-rc.1",
-    "vue": "^2.0.0 || >=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+    "vue": "^2.7 || ^3.0.0-0"
   },
   "dependencies": {
-    "@m9ch/utils": "^0.3.0",
-    "@m9ch/vhooks-types": "workspace:^",
-    "@m9ch/vhooks-utils": "workspace:^",
-    "dayjs": "^1.11.4",
+    "@m9ch/utils": "^0.3.1",
+    "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
-    "vue-demi": "^0.13.6"
+    "vue-demi": "^0.14.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.21",
-    "@m9ch/vhooks-test-utils": "workspace:^",
-    "@vitejs/plugin-vue-jsx": "^2.0.0",
-    "jsdom": "^20.0.0",
-    "rimraf": "^3.0.2",
-    "vite": "^3.0.0",
-    "vitest": "^0.19.1",
-    "vitest-localstorage-mock": "^0.0.1",
-    "vue": "^3.2.36"
-  },
-  "tsup": {
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "dts": true,
-    "clean": true,
-    "target": "es5"
-  },
-  "publishConfig": {
-    "access": "public"
+    "@m9ch/vhooks-test-utils": "workspace:*",
+    "@m9ch/vhooks-types": "workspace:*",
+    "@types/lodash": "^4.14.198",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@vitejs/plugin-vue-jsx": "^3.0.2",
+    "vue": "^3.3.4"
   }
 }

@@ -1,9 +1,8 @@
 import { act, renderHook } from '@m9ch/vhooks-test-utils'
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import type { Options } from '../index'
 import useCountDown from '../index'
 
-const setup = (options: Options = {}) => {
+function setup(options: Options = {}) {
   return renderHook((props: Options = options) => useCountDown(props))
 }
 

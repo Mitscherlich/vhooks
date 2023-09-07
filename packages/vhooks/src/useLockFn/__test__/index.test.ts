@@ -1,5 +1,4 @@
 import { renderHook, sleep } from '@m9ch/vhooks-test-utils'
-import { describe, expect, it } from 'vitest'
 import useRef from '../../useRef'
 import useLockFn from '../index'
 

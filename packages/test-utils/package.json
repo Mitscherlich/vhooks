@@ -1,49 +1,36 @@
 {
   "name": "@m9ch/vhooks-test-utils",
   "version": "0.1.0-beta.10",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
-    }
+  "description": "@m9ch/vhooks-test-utils",
+  "license": "MIT",
+  "author": "Mitscherlich Wei <mitscherlich36@gmail.com>",
+  "homepage": "https://github.com/Mitscherlich/vhooks/tree/dev/packages/test-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mitscherlich/vhooks.git",
+    "directory": "packages/test-utils"
   },
-  "source": "./src/index.ts",
+  "bugs": "https://github.com/Mitscherlich/vhooks/issues",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup ./src/index.ts",
-    "prepublishOnly": "rimraf ./dist && pnpm build"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "test": "vitest run"
   },
   "peerDependencies": {
-    "vitest": "^0.7.0",
-    "vue": "^3.2"
+    "vue": "^2.7 || ^3.0.0-0"
   },
   "dependencies": {
-    "@testing-library/dom": "^8.16.0",
-    "@testing-library/user-event": "^14.3.0",
-    "@testing-library/vue": "^6.6.1"
+    "@testing-library/dom": "^9.3.1",
+    "@testing-library/vue": "^7.0.0",
+    "@testing-library/user-event": "^14.4.3"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.36",
-    "rimraf": "^3.0.2",
-    "tsup": "^6.2.0",
-    "vitest": "^0.19.1",
-    "vue": "^3.2.36"
-  },
-  "tsup": {
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "dts": true,
-    "clean": true
-  },
-  "publishConfig": {
-    "access": "public"
+    "vue": "^3.3.4"
   }
 }

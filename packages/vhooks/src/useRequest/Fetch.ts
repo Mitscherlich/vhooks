@@ -1,4 +1,4 @@
-import { isFunction } from '@m9ch/vhooks-utils'
+import { isFunction } from 'lodash'
 import { reactive } from 'vue-demi'
 import type { FetchState, Options, PluginReturn, Service, Subscribe } from './types'
 

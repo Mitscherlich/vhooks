@@ -1,5 +1,4 @@
 import { renderHook } from '@m9ch/vhooks-test-utils'
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import useRafInterval from '../index'
 
 interface ParamsObj {
@@ -8,8 +7,9 @@ interface ParamsObj {
   options?: { immediate: boolean }
 }
 
-const setUp = ({ fn, delay, options }: ParamsObj) =>
-  renderHook(() => useRafInterval(fn, delay, options))
+function setUp({ fn, delay, options }: ParamsObj) {
+  return renderHook(() => useRafInterval(fn, delay, options))
+}
 
 const FRAME_TIME = 16
 describe('useRafInterval', () => {

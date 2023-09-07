@@ -1,5 +1,5 @@
 // from swr
-import { isBrowser } from '@m9ch/vhooks-utils'
+import { isBrowser } from '@m9ch/utils'
 import isDocumentVisible from './isDocumentVisible'
 import isOnline from './isOnline'
 

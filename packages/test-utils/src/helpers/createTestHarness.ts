@@ -6,11 +6,14 @@ import type { RendererProps } from '../types'
 export function createTestHarness<TProps, TResult>(
   { callback, setValue, setError }: RendererProps<TProps, TResult>,
 ) {
-  const TestComponent = defineComponent<{ hookProps?: TProps }>((props) => {
-    setValue(callback(props.hookProps as TProps))
-    return () => null
+  const TestComponent = defineComponent({
+    name: 'TestComponent',
+    props: ['hookProps'],
+    setup(props) {
+      setValue(callback(props.hookProps as TProps))
+      return () => null
+    },
   })
-  TestComponent.props = ['hookProps']
 
   const testHarness = (props?: TProps, { container }: RenderOptions = {}) => {
     try {

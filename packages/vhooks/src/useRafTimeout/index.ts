@@ -1,5 +1,5 @@
 import type { MaybeRef } from '@m9ch/vhooks-types'
-import { isNumber } from '@m9ch/vhooks-utils'
+import { isNumber } from 'lodash'
 import { unref } from 'vue-demi'
 import useEffect from '../useEffect'
 import useLatest from '../useLatest'

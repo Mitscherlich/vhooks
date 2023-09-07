@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { isNumber } from '@m9ch/vhooks-utils'
+import { isNumber } from 'lodash'
 import { computed } from 'vue-demi'
 import useEffect from '../useEffect'
 import useState from '../useState'
@@ -22,7 +22,7 @@ export interface FormattedRes {
   milliseconds: number
 }
 
-const calcLeft = (target?: TDate) => {
+function calcLeft(target?: TDate) {
   if (!target)
     return 0
 
@@ -31,7 +31,7 @@ const calcLeft = (target?: TDate) => {
   return left < 0 ? 0 : left
 }
 
-const parseMs = (milliseconds: number): FormattedRes => {
+function parseMs(milliseconds: number): FormattedRes {
   return {
     days: Math.floor(milliseconds / 86400000),
     hours: Math.floor(milliseconds / 3600000) % 24,
@@ -46,7 +46,7 @@ export default function useCountDown(options: Options = {}) {
 
   const target = computed<TDate>(() => {
     if ('leftTime' in options)
-      return isNumber(leftTime) && leftTime > 0 ? Date.now() + leftTime : undefined
+      return (isNumber(leftTime) && leftTime > 0) ? Date.now() + leftTime : undefined
     else
       return targetDate
   })

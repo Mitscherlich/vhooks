@@ -1,4 +1,4 @@
-import { isBrowser } from '@m9ch/vhooks-utils'
+import { isBrowser } from '@m9ch/utils'
 
 export default function isDocumentVisible(): boolean {
   if (isBrowser)

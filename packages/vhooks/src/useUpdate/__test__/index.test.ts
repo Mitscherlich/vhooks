@@ -1,5 +1,4 @@
 import { act, renderHook } from '@m9ch/vhooks-test-utils'
-import { describe, expect, it } from 'vitest'
 import { onUpdated } from 'vue'
 import useState from '../../useState'
 import useUpdate from '../index'

@@ -8,7 +8,7 @@ import {
   isObject,
   isPlainObject,
   isSet,
-} from '@m9ch/vhooks-utils'
+} from 'lodash'
 import {
   effect,
   getCurrentInstance,

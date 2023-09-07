@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+tmp/
 logs/
 *.log
 /npm-debug.log*
@@ -16,4 +17,5 @@ dist/
 .DS_Store
 .vscode
 .husky
+.turbo
 *.zip

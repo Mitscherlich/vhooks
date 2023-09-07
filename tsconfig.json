@@ -5,11 +5,11 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["vitest/globals"],
   },
   "exclude": [
     "node_modules",
     "**/*.spec.ts",
-    "**/*.test.ts"
   ]
 }

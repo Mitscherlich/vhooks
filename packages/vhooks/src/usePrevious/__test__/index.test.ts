@@ -1,5 +1,4 @@
 import { renderHook } from '@m9ch/vhooks-test-utils'
-import { describe, expect, it } from 'vitest'
 import type { ShouldUpdateFunc } from '../index'
 import usePrevious from '../index'
 
