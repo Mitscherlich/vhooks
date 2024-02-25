@@ -9,7 +9,8 @@
     "build:release": "tsx scripts/turbo --no-cache build",
     "dev": "tsx scripts/turbo dev",
     "test": "tsx scripts/turbo test",
-    "release": "tsx scripts/release"
+    "release:ci": "tsx scripts/release",
+    "release": "bumpp package.json packages/**/package.json && pnpm -r publish"
   },
   "devDependencies": {
     "@m9ch/eslint-config-all": "^0.3.2",
