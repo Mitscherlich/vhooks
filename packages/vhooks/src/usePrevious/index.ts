@@ -23,7 +23,6 @@ export default function usePrevious<T>(
   return readonly(prevRef)
 }
 
-function defaultShouldUpdate <T>(a?: T, b?: T) {
+function defaultShouldUpdate<T>(a?: T, b?: T) {
   return !Object.is(a, b)
 }
-
