@@ -5,7 +5,7 @@ import useLatest from '../useLatest'
 import useRef from '../useRef'
 
 interface Handle {
-  id: number | NodeJS.Timer
+  id: number | NodeJS.Timeout
 }
 
 function useRafInterval(
