@@ -1,51 +1,48 @@
-import type { MaybeRef } from '@m9ch/vhooks-types'
-import type { SetupContext } from 'vue-demi'
-import {
-  computed, defineComponent, inject, unref,
-} from 'vue-demi'
-
+import { defineComponent, inject, provide, readonly, ref, toRef } from 'vue-demi'
 import type { Context, ContextId } from './types'
 
-const defaultContextId: ContextId<any> = Symbol.for('defaultContext')
+export function createContext<T>(defaultValue?: T): Context<T> {
+  const contextId: ContextId<T> = Symbol('@@Context')
 
-export function createContext<T>(
-  defaultValue: MaybeRef<T>,
-  contextId: ContextId<T> = defaultContextId,
-) {
-  const context = {
-    _contextId: contextId,
-    _contextValue: defaultValue,
-
+  return {
     Provider: defineComponent({
-      name: 'Context.Provider',
-      provide() {
-        const contextValue = computed(() => {
-          return this.value ?? unref(context._contextValue)
-        })
-        return { [contextId as symbol]: contextValue }
+      name: 'ContextProvider',
+      props: {
+        value: {
+          type: null,
+          default() {
+            return defaultValue ?? null
+          },
+        },
       },
-      inheritAttrs: false,
-      props: ['value'],
-      render() {
-        return this.$slots.default?.()
-      },
-    }),
-    Consumer: defineComponent({
-      name: 'Context.Consumer',
-      functional: true,
-      inheritAttrs: false,
-      render: (_: any, { slots }: SetupContext) => {
-        const contextValue = inject(contextId, context._contextValue)
-        return slots.default?.(unref(contextValue))
-      },
-    }),
-  }
+      setup(props, { slots }) {
+        const value: any = toRef(props, 'value' as never)
+        provide(contextId, readonly(value))
 
-  return context
+        return () => slots?.default?.()
+      },
+    }),
+
+    Consumer: defineComponent({
+      name: 'ContextConsumer',
+      setup(_props, { slots }) {
+        const value = inject(contextId)
+
+        return () => slots?.default?.(value)
+      },
+    }),
+
+    contextId,
+  }
 }
 
 export default function useContext<T>(context: Context<T>) {
-  return inject(context._contextId)
+  const key = context.contextId
+
+  return inject(key, ref(null))
 }
 
-export type { Context, ContextId } from './types'
+export {
+  type Context,
+  type ContextId,
+}
