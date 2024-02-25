@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.1.0-beta.11",
+  "version": "0.1.0-beta.12",
   "scripts": {
     "bootstrap": "tsx scripts/bootstrap",
     "docs:dev": "pnpm run --filter docs dev",

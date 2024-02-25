@@ -1,6 +1,6 @@
 {
   "name": "@m9ch/vhooks",
-  "version": "0.1.0-beta.11",
+  "version": "0.1.0-beta.12",
   "description": "Missing React-like hooks of Vue composition API",
   "license": "MIT",
   "author": "Mitscherlich Wei <mitscherlich36@gmail.com>",
